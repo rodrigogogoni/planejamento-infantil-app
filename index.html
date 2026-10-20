@@ -1863,7 +1863,21 @@ html>body{padding:0}</style>
           <p id="si-document-message" class="si-muted" style="margin-top:12px" role="status"></p>
           <div class="si-note">Não informe nome completo, diagnóstico, endereço, data de nascimento ou dados de saúde de crianças.</div>
         </div>
-        <div class="si-actions"><button class="si-primary" type="button" data-save-document>Salvar rascunho neste aparelho</button><button class="si-secondary" type="button" data-next="bncc-search">Consultar BNCC antes de continuar</button></div>
+        <div class="si-actions"><button class="si-primary" type="button" data-generate-document>Gerar documento com IA</button><button class="si-secondary" type="button" data-save-document>Salvar rascunho neste aparelho</button><button class="si-secondary" type="button" data-next="bncc-search">Consultar BNCC antes de continuar</button></div>
+      </section>
+
+      <section class="si-screen" data-panel="document-result" hidden>
+        <div class="si-topbar"><button class="si-back" type="button" data-next="document-builder">← Ajustar dados</button><strong>Documento gerado</strong><span class="si-tag">IA + BNCC</span></div>
+        <div class="si-content">
+          <h2 id="si-result-title">Documento pedagógico</h2>
+          <p id="si-result-summary" class="si-muted"></p>
+          <div id="si-result-sections"></div>
+          <h3>Relações com a BNCC</h3>
+          <div id="si-result-bncc"></div>
+          <div class="si-box"><strong>Possível continuidade</strong><p id="si-result-continuity" class="si-muted" style="margin-top:4px"></p></div>
+          <p id="si-result-meta" class="si-muted" style="margin-top:12px"></p>
+        </div>
+        <div class="si-actions"><button class="si-primary" type="button" data-save-generated>Salvar documento neste aparelho</button><button class="si-secondary" type="button" data-next="home">Voltar ao início</button></div>
       </section>
 
       <section class="si-screen" data-panel="profile" hidden>
@@ -2230,6 +2244,7 @@ html>body{padding:0}</style>
       };
       const blockedDocumentTerms = /\b(diagn[oó]stico|autismo|tdah|cpf|rg|endere[cç]o|data de nascimento|laudo m[eé]dico)\b/i;
       let activeDocumentType = null;
+      let activeGeneratedDocument = null;
       let bnccReturnPanel = 'home';
       const localOnlyMode = true;
       let accessGranted = true;
@@ -2313,6 +2328,60 @@ html>body{padding:0}</style>
         element.textContent = text;
         element.classList.toggle('si-success', success);
         element.classList.toggle('si-error', !success && Boolean(text));
+      }
+      function readDocumentForm() {
+        const definition = documentTypes[activeDocumentType];
+        const stage = root.querySelector('#si-classroom-stage').value;
+        const period = root.querySelector('#si-document-period').value.trim();
+        const focus = root.querySelector('#si-document-focus').value.trim();
+        const context = root.querySelector('#si-document-context').value.trim();
+        const evidence = root.querySelector('#si-document-evidence').value.trim();
+        return { definition, stage, period, focus, context, evidence };
+      }
+      function validateDocumentForm(form, message) {
+        if (!form.definition || !form.stage || !form.period || !form.focus || !form.context || (form.definition.evidence && !form.evidence)) {
+          setMessage(message, !form.stage ? 'Cadastre a turma e escolha a faixa etária antes de gerar.' : 'Preencha o período, o foco e os campos pedagógicos antes de continuar.');
+          return false;
+        }
+        if (blockedDocumentTerms.test(`${form.focus} ${form.context} ${form.evidence}`)) {
+          setMessage(message, 'Retire diagnósticos, documentos pessoais e informações clínicas. Registre somente fatos pedagógicos observáveis.');
+          return false;
+        }
+        return true;
+      }
+      function renderGeneratedDocument(payload) {
+        const documentData = payload.document;
+        activeGeneratedDocument = payload;
+        root.querySelector('#si-result-title').textContent = documentData.title;
+        root.querySelector('#si-result-summary').textContent = documentData.summary;
+        root.querySelector('#si-result-continuity').textContent = documentData.continuity;
+        root.querySelector('#si-result-sections').replaceChildren(...documentData.sections.map(section => {
+          const card = document.createElement('article');
+          card.className = 'si-card';
+          const heading = document.createElement('strong');
+          heading.textContent = section.heading;
+          const content = document.createElement('small');
+          content.textContent = section.content;
+          card.append(heading, content);
+          return card;
+        }));
+        const bncc = root.querySelector('#si-result-bncc');
+        if (!documentData.bncc_links.length) {
+          bncc.textContent = 'Nenhum vínculo direto foi selecionado para este registro.';
+        } else {
+          bncc.replaceChildren(...documentData.bncc_links.map(link => {
+            const card = document.createElement('article');
+            card.className = 'si-card';
+            const code = document.createElement('strong');
+            code.textContent = link.code;
+            const reason = document.createElement('small');
+            reason.textContent = link.reason;
+            card.append(code, reason);
+            return card;
+          }));
+        }
+        root.querySelector('#si-result-meta').textContent = `Gerado com ${payload.meta.model} · Base ${payload.meta.bncc_source} · ${payload.meta.input_tokens + payload.meta.output_tokens} tokens`;
+        show('document-result');
       }
       function updateClassroomSummary(name, children, adults) {
         root.querySelector('#si-request-classroom').textContent = `${name} · ${children} crianças · ${adults} adultos`;
@@ -2460,22 +2529,70 @@ html>body{padding:0}</style>
           openDocumentBuilder(documentType.dataset.documentType);
           return;
         }
+        const generateDocument = event.target.closest('[data-generate-document]');
+        if (generateDocument) {
+          const message = root.querySelector('#si-document-message');
+          const form = readDocumentForm();
+          if (!validateDocumentForm(form, message)) return;
+          generateDocument.disabled = true;
+          generateDocument.textContent = 'Gerando com IA…';
+          setMessage(message, 'Consultando a base BNCC e preparando o documento. Isso pode levar alguns segundos.', true);
+          try {
+            const response = await fetch(`${supabaseUrl}/functions/v1/generate-pedagogical-document`, {
+              method: 'POST',
+              headers: { 'content-type': 'application/json', apikey: supabaseAnonKey, Authorization: `Bearer ${supabaseAnonKey}` },
+              body: JSON.stringify({
+                type: activeDocumentType,
+                stage: form.stage,
+                classroom: currentClassroomSummary(),
+                period: form.period,
+                focus: form.focus,
+                context: form.context,
+                evidence: form.definition.evidence ? form.evidence : ''
+              })
+            });
+            const payload = await response.json().catch(() => ({}));
+            if (!response.ok) throw new Error(`${payload.error || 'generation_error'}:${payload.status || response.status}`);
+            renderGeneratedDocument(payload);
+          } catch (generationError) {
+            const reason = generationError instanceof Error ? generationError.message : '';
+            const friendly = reason.startsWith('ai_not_configured')
+              ? 'A conexão está pronta, mas a chave da IA ainda não foi configurada no servidor.'
+              : reason === 'provider_error:429'
+                ? 'A IA está conectada, mas a conta da API está sem créditos. Adicione saldo na OpenAI e tente novamente.'
+              : 'Não foi possível gerar agora. Seus dados continuam preenchidos; tente novamente em instantes.';
+            setMessage(message, friendly);
+            console.error('Falha na geração pedagógica', generationError);
+          } finally {
+            generateDocument.disabled = false;
+            generateDocument.textContent = 'Gerar documento com IA';
+          }
+          return;
+        }
+        const saveGenerated = event.target.closest('[data-save-generated]');
+        if (saveGenerated && activeGeneratedDocument) {
+          try {
+            const drafts = JSON.parse(localStorage.getItem('planejamento-infantil-drafts') || '[]');
+            const item = {
+              id: globalThis.crypto?.randomUUID?.() || String(Date.now()),
+              type: activeDocumentType,
+              title: activeGeneratedDocument.document.title,
+              period: root.querySelector('#si-document-period').value.trim(),
+              generated: activeGeneratedDocument.document,
+              saved_at: new Date().toLocaleString('pt-BR')
+            };
+            localStorage.setItem('planejamento-infantil-drafts', JSON.stringify([item, ...drafts].slice(0, 20)));
+            saveGenerated.textContent = 'Documento salvo neste aparelho ✓';
+          } catch (storageError) {
+            saveGenerated.textContent = 'Não foi possível salvar';
+          }
+          return;
+        }
         const saveDocument = event.target.closest('[data-save-document]');
         if (saveDocument) {
-          const definition = documentTypes[activeDocumentType];
-          const period = root.querySelector('#si-document-period').value.trim();
-          const focus = root.querySelector('#si-document-focus').value.trim();
-          const context = root.querySelector('#si-document-context').value.trim();
-          const evidence = root.querySelector('#si-document-evidence').value.trim();
+          const { definition, stage, period, focus, context, evidence } = readDocumentForm();
           const message = root.querySelector('#si-document-message');
-          if (!definition || !period || !focus || !context || (definition.evidence && !evidence)) {
-            setMessage(message, 'Preencha o período, o foco e os campos pedagógicos antes de salvar.');
-            return;
-          }
-          if (blockedDocumentTerms.test(`${focus} ${context} ${evidence}`)) {
-            setMessage(message, 'Retire diagnósticos, documentos pessoais e informações clínicas. Registre somente fatos pedagógicos observáveis.');
-            return;
-          }
+          if (!validateDocumentForm({ definition, stage, period, focus, context, evidence }, message)) return;
           const draft = {
             id: globalThis.crypto?.randomUUID?.() || String(Date.now()),
             type: activeDocumentType,
@@ -2490,7 +2607,7 @@ html>body{padding:0}</style>
           try {
             const drafts = JSON.parse(localStorage.getItem('planejamento-infantil-drafts') || '[]');
             localStorage.setItem('planejamento-infantil-drafts', JSON.stringify([draft, ...drafts].slice(0, 20)));
-            setMessage(message, 'Rascunho salvo neste aparelho. A geração do documento será conectada ao motor em uma próxima etapa.', true);
+            setMessage(message, 'Rascunho salvo neste aparelho.', true);
           } catch (storageError) {
             setMessage(message, 'Não foi possível salvar o rascunho neste aparelho.');
             console.error('Falha ao salvar rascunho', storageError);
