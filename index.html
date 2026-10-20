@@ -2559,7 +2559,7 @@ html>body{padding:0}</style>
             const friendly = reason.startsWith('ai_not_configured')
               ? 'A conexão está pronta, mas a chave da IA ainda não foi configurada no servidor.'
               : reason === 'provider_error:429'
-                ? 'A IA está conectada, mas a conta da API está sem créditos. Adicione saldo na OpenAI e tente novamente.'
+                ? 'A IA está conectada, mas o limite gratuito do momento foi atingido. Aguarde a renovação do limite e tente novamente.'
               : 'Não foi possível gerar agora. Seus dados continuam preenchidos; tente novamente em instantes.';
             setMessage(message, friendly);
             console.error('Falha na geração pedagógica', generationError);
