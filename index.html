@@ -1670,9 +1670,9 @@ html>body{padding:0}</style>
   </style>
 
   <div class="si-shell">
-    <div class="si-flow" role="group" aria-label="Telas do fluxo">
-      <button class="si-step" type="button" data-screen="auth" aria-pressed="false">Entrar</button>
-      <button class="si-step" type="button" data-screen="profile" aria-pressed="true">Perfil</button>
+    <div class="si-flow" role="group" aria-label="Telas do fluxo" hidden>
+      <button class="si-step" type="button" data-screen="auth" aria-pressed="true">Entrar</button>
+      <button class="si-step" type="button" data-screen="profile" aria-pressed="false">Perfil</button>
       <button class="si-step" type="button" data-screen="request" aria-pressed="false">Pedido</button>
       <button class="si-step" type="button" data-screen="week" aria-pressed="false">Semana</button>
       <button class="si-step" type="button" data-screen="proposal" aria-pressed="false">Proposta</button>
@@ -1698,11 +1698,11 @@ html>body{padding:0}</style>
     <div class="si-phone" aria-live="polite">
       <div class="si-status"><span>9:41</span><span>Wireframe mobile · baixa fidelidade</span></div>
 
-      <section class="si-screen" data-panel="auth" hidden>
-        <div class="si-topbar"><strong>Minha conta</strong><span id="si-auth-state" class="si-tag">Verificando…</span></div>
+      <section class="si-screen" data-panel="auth">
+        <div class="si-topbar"><strong>Acesso da professora</strong><span id="si-auth-state" class="si-tag">Verificando…</span></div>
         <div class="si-content">
-          <h2>Entre para salvar seu trabalho</h2>
-          <p class="si-muted">Enviaremos um link seguro para seu e-mail. Não é necessário criar senha.</p>
+          <h2>Entre com o e-mail usado na compra</h2>
+          <p class="si-muted">Use o mesmo e-mail informado na Hotmart. Enviaremos um link seguro; não é necessário criar senha.</p>
           <div id="si-auth-logged-out">
             <label class="si-field"><span class="si-label">E-mail da professora</span><input id="si-auth-email" type="email" autocomplete="email" placeholder="professora@escola.com.br"></label>
             <button class="si-primary" style="margin-top:15px" type="button" data-send-magic-link>Enviar link de acesso</button>
@@ -1711,13 +1711,16 @@ html>body{padding:0}</style>
             <div class="si-card"><strong>Conta conectada</strong><small id="si-auth-user-email"></small></div>
             <button class="si-secondary" type="button" data-sign-out>Sair desta conta</button>
           </div>
+          <div id="si-access-result" hidden>
+            <div class="si-card"><strong id="si-access-title">Verificando compra…</strong><small id="si-access-detail"></small></div>
+          </div>
           <p id="si-auth-message" class="si-muted" style="margin-top:12px" role="status"></p>
-          <div class="si-note">Os dados são vinculados à conta da professora. Não cadastre nomes, diagnósticos ou informações identificáveis de crianças.</div>
+          <div class="si-note">O acesso é liberado somente após a confirmação da compra pela Hotmart. Os dados são vinculados à conta da professora.</div>
         </div>
-        <div class="si-actions"><button class="si-primary" type="button" data-next="profile">Continuar para a turma</button></div>
+        <div id="si-enter-app" class="si-actions" hidden><button class="si-primary" type="button" data-next="profile">Entrar no aplicativo</button></div>
       </section>
 
-      <section class="si-screen" data-panel="profile">
+      <section class="si-screen" data-panel="profile" hidden>
         <div class="si-progress"><span style="width:38%"></span></div>
         <div class="si-topbar"><button class="si-back" type="button">← Voltar</button><strong>Primeira turma</strong><span></span></div>
         <div class="si-content">
@@ -2063,6 +2066,7 @@ html>body{padding:0}</style>
         EI03: 'Crianças pequenas · 4 anos a 5 anos e 11 meses'
       };
       const bnccCache = new Map();
+      let accessGranted = false;
       async function loadBncc(stage) {
         if (bnccCache.has(stage)) return bnccCache.get(stage);
         const query = new URLSearchParams({
@@ -2127,6 +2131,8 @@ html>body{padding:0}</style>
         const state = root.querySelector('#si-auth-state');
         const loggedOut = root.querySelector('#si-auth-logged-out');
         const loggedIn = root.querySelector('#si-auth-logged-in');
+        const accessResult = root.querySelector('#si-access-result');
+        const enterApp = root.querySelector('#si-enter-app');
         if (!supabaseClient) {
           state.textContent = 'Indisponível';
           setMessage(root.querySelector('#si-auth-message'), 'Não foi possível iniciar a conexão segura.');
@@ -2134,14 +2140,56 @@ html>body{padding:0}</style>
         }
         const { data: { session } } = await supabaseClient.auth.getSession();
         const user = session?.user;
+        accessGranted = false;
         loggedOut.hidden = Boolean(user);
         loggedIn.hidden = !user;
-        state.textContent = user ? 'Conectada' : 'Não conectada';
+        accessResult.hidden = !user;
+        enterApp.hidden = true;
+        root.querySelector('.si-flow').hidden = true;
+        state.textContent = user ? 'Verificando compra' : 'Não conectada';
         root.querySelector('#si-auth-user-email').textContent = user?.email || '';
-        if (user) await loadClassroom();
+        if (!user) {
+          show('auth', true);
+          return;
+        }
+        const title = root.querySelector('#si-access-title');
+        const detail = root.querySelector('#si-access-detail');
+        title.textContent = 'Verificando compra…';
+        detail.textContent = 'Consultando o acesso vinculado a este e-mail.';
+        const claim = await supabaseClient.rpc('claim_hotmart_access');
+        if (claim.error) {
+          state.textContent = 'Configuração pendente';
+          title.textContent = 'Integração Hotmart em preparação';
+          detail.textContent = 'Sua conta foi autenticada, mas a validação comercial ainda não está disponível.';
+          return;
+        }
+        const { data, error } = await supabaseClient.rpc('get_current_access');
+        const access = Array.isArray(data) ? data[0] : data;
+        if (error || !access) {
+          state.textContent = 'Compra não localizada';
+          title.textContent = 'Pagamento não localizado';
+          detail.textContent = 'Não encontramos uma compra da Hotmart para este e-mail. Confira se usou o mesmo endereço informado no checkout.';
+          return;
+        }
+        const permitted = new Set(['trial', 'active', 'past_due', 'grace_period', 'canceled_active_until_end']);
+        accessGranted = permitted.has(access.access_status);
+        if (accessGranted) {
+          state.textContent = 'Acesso liberado';
+          title.textContent = access.access_status === 'canceled_active_until_end' ? 'Acesso ativo até o fim do período' : 'Compra confirmada';
+          detail.textContent = access.current_period_end
+            ? `Acesso válido até ${new Date(access.current_period_end).toLocaleDateString('pt-BR')}.`
+            : 'Seu acesso ao aplicativo está ativo.';
+          enterApp.hidden = false;
+          await loadClassroom();
+          return;
+        }
+        state.textContent = 'Acesso indisponível';
+        title.textContent = access.access_status === 'refunded' ? 'Compra reembolsada' : access.access_status === 'chargeback' ? 'Pagamento contestado' : 'Assinatura sem acesso';
+        detail.textContent = 'Entre em contato com o suporte ou regularize a assinatura pela Hotmart.';
       }
       supabaseClient?.auth.onAuthStateChange(() => window.setTimeout(refreshAuthUI, 0));
-      function show(name) {
+      function show(name, force = false) {
+        if (!force && name !== 'auth' && !accessGranted) name = 'auth';
         panels.forEach(panel => { panel.hidden = panel.dataset.panel !== name; });
         steps.forEach(step => { step.setAttribute('aria-pressed', String(step.dataset.screen === name)); });
       }
@@ -2169,6 +2217,7 @@ html>body{padding:0}</style>
         if (signOut) {
           await supabaseClient?.auth.signOut();
           setMessage(root.querySelector('#si-auth-message'), 'Sessão encerrada.', true);
+          show('auth', true);
           return;
         }
         const saveClassroom = event.target.closest('[data-save-classroom]');
@@ -2247,6 +2296,7 @@ html>body{padding:0}</style>
           toggle.classList.toggle('on');
         }
       });
+      show('auth', true);
       refreshAuthUI();
       root.querySelector('[data-bncc-search]').click();
     })();
