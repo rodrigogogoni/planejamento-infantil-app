@@ -1491,26 +1491,26 @@ html>body{padding:0}</style>
 <div id="si-wireframes" class="viz-dotted-background">
   <style>
     #si-wireframes {
-      --si-page: #f7efe5;
-      --si-phone: #fffdf9;
-      --si-text: #26332e;
-      --si-muted: #66736d;
-      --si-line: #d8ded8;
-      --si-soft: #e7f1ec;
-      --si-ink: #356859;
-      --si-action: #356859;
-      --si-action-hover: #285347;
+      --si-page: #f3f0fb;
+      --si-phone: #fffefe;
+      --si-text: #2f3042;
+      --si-muted: #6f7082;
+      --si-line: #dedcea;
+      --si-soft: #eeebf9;
+      --si-ink: #514b8b;
+      --si-action: #59529a;
+      --si-action-hover: #454079;
       --si-action-text: #ffffff;
-      --si-accent: #d97757;
-      --si-accent-soft: #fbe9e1;
-      --si-sun: #f4c95d;
+      --si-accent: #e06f5f;
+      --si-accent-soft: #fff0ed;
+      --si-sun: #ffd166;
       color: var(--si-text);
       padding: 28px 12px 64px;
       min-height: 100vh;
       background:
-        radial-gradient(circle at 12% 8%, rgba(244, 201, 93, .24) 0 7%, transparent 7.2%),
-        radial-gradient(circle at 88% 18%, rgba(217, 119, 87, .13) 0 9%, transparent 9.2%),
-        linear-gradient(180deg, #fff9f2 0%, var(--si-page) 100%);
+        radial-gradient(circle at 12% 8%, rgba(255, 209, 102, .23) 0 7%, transparent 7.2%),
+        radial-gradient(circle at 88% 18%, rgba(224, 111, 95, .12) 0 9%, transparent 9.2%),
+        linear-gradient(180deg, #fbfaff 0%, var(--si-page) 100%);
       font-family: "Avenir Next", Avenir, Nunito, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
     #si-wireframes * { box-sizing: border-box; }
@@ -1542,10 +1542,10 @@ html>body{padding:0}</style>
       width: min(520px, 100%);
       margin: 0 auto;
       background: var(--si-phone);
-      border: 1px solid rgba(53, 104, 89, .18);
+      border: 1px solid rgba(81, 75, 139, .18);
       border-radius: 26px;
       overflow: hidden;
-      box-shadow: 0 24px 70px rgba(61, 75, 68, .16), 0 3px 12px rgba(61, 75, 68, .08);
+      box-shadow: 0 24px 70px rgba(65, 57, 113, .14), 0 3px 12px rgba(65, 57, 113, .08);
     }
     #si-wireframes .si-status {
       display: flex;
@@ -1569,7 +1569,7 @@ html>body{padding:0}</style>
       gap: 12px;
       padding: 12px 20px;
       border-bottom: 1px solid var(--si-line);
-      background: rgba(231, 241, 236, .58);
+      background: rgba(238, 235, 249, .72);
     }
     #si-wireframes .si-topbar strong { font-size: 15px; font-weight: 750; color: var(--si-ink); }
     #si-wireframes .si-back, #si-wireframes .si-link {
@@ -1602,7 +1602,7 @@ html>body{padding:0}</style>
       font: inherit;
       font-size: 16px;
     }
-    #si-wireframes input:focus, #si-wireframes textarea:focus, #si-wireframes select:focus { outline: 3px solid rgba(53, 104, 89, .15); border-color: var(--si-ink); }
+    #si-wireframes input:focus, #si-wireframes textarea:focus, #si-wireframes select:focus { outline: 3px solid rgba(89, 82, 154, .15); border-color: var(--si-ink); }
     #si-wireframes textarea { min-height: 96px; resize: vertical; }
     #si-wireframes .si-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     #si-wireframes .si-days { display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px; margin-top: 7px; }
@@ -1690,8 +1690,8 @@ html>body{padding:0}</style>
       padding: 18px;
       border-radius: 18px;
       color: #ffffff;
-      background: linear-gradient(135deg, #356859 0%, #497f6e 100%);
-      box-shadow: 0 12px 28px rgba(53, 104, 89, .2);
+      background: linear-gradient(135deg, #514b8b 0%, #7770bd 100%);
+      box-shadow: 0 12px 28px rgba(81, 75, 139, .22);
     }
     #si-wireframes .si-home-hero h2 { color: #ffffff; }
     #si-wireframes .si-home-hero .si-muted { color: rgba(255,255,255,.82); }
@@ -1733,6 +1733,26 @@ html>body{padding:0}</style>
     #si-wireframes .si-tool-button strong { display: block; color: var(--si-ink); font-size: 14px; }
     #si-wireframes .si-tool-button small { display: block; margin-top: 3px; color: var(--si-muted); font-size: 12px; line-height: 1.3; }
     #si-wireframes .si-tool-arrow { color: var(--si-accent); font-size: 20px; }
+    #si-wireframes .si-tool-button:nth-child(6n + 1) { --tool-color: #4f78c4; --tool-soft: #eaf1ff; }
+    #si-wireframes .si-tool-button:nth-child(6n + 2) { --tool-color: #d46455; --tool-soft: #fff0ed; }
+    #si-wireframes .si-tool-button:nth-child(6n + 3) { --tool-color: #60884d; --tool-soft: #eef7e9; }
+    #si-wireframes .si-tool-button:nth-child(6n + 4) { --tool-color: #805ca8; --tool-soft: #f3ecfb; }
+    #si-wireframes .si-tool-button:nth-child(6n + 5) { --tool-color: #b57927; --tool-soft: #fff5df; }
+    #si-wireframes .si-tool-button:nth-child(6n + 6) { --tool-color: #267f83; --tool-soft: #e7f7f6; }
+    #si-wireframes .si-tool-button .si-hub-icon { color: var(--tool-color); background: var(--tool-soft); }
+    #si-wireframes .si-tool-button strong { color: var(--tool-color); }
+    #si-wireframes .si-tool-button .si-tool-arrow { color: var(--tool-color); }
+    #si-wireframes .si-document-identity { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding: 13px 14px; border-radius: 15px; color: var(--document-color, var(--si-ink)); background: color-mix(in srgb, var(--document-color, var(--si-ink)) 10%, white); border: 1px solid color-mix(in srgb, var(--document-color, var(--si-ink)) 24%, white); }
+    #si-wireframes .si-document-identity .si-hub-icon { margin: 0; color: inherit; background: rgba(255,255,255,.72); }
+    #si-wireframes .si-document-identity small { display: block; margin-top: 2px; color: var(--si-muted); font-size: 12px; }
+    #si-wireframes .si-builder-step { display: flex; gap: 7px; margin: 17px 0 4px; }
+    #si-wireframes .si-builder-step span { flex: 1; height: 5px; border-radius: 999px; background: #e5e3ed; }
+    #si-wireframes .si-builder-step span:first-child { background: var(--document-color, var(--si-action)); }
+    #si-wireframes .si-result-preview { margin-top: 16px; padding: 14px 15px; border-radius: 14px; border-left: 4px solid var(--document-color, var(--si-accent)); background: #faf9fd; }
+    #si-wireframes .si-result-preview strong { color: var(--document-color, var(--si-ink)); font-size: 13px; }
+    #si-wireframes .si-result-preview p { margin-top: 4px; color: var(--si-muted); font-size: 12px; }
+    #si-wireframes [data-panel="document-builder"] .si-topbar,
+    #si-wireframes [data-panel="document-result"] .si-topbar { border-top: 5px solid var(--document-color, var(--si-action)); }
     #si-wireframes .si-draft-list:empty::before { content: "Nenhum rascunho salvo neste aparelho."; color: var(--si-muted); font-size: 13px; }
     #si-wireframes .si-draft-item { margin-top: 8px; padding: 11px 12px; border: 1px solid var(--si-line); border-radius: 12px; background: #ffffff; }
     #si-wireframes .si-draft-item strong { display: block; font-size: 13px; color: var(--si-ink); }
@@ -1853,17 +1873,21 @@ html>body{padding:0}</style>
       <section class="si-screen" data-panel="document-builder" hidden>
         <div class="si-topbar"><button id="si-document-back" class="si-back" type="button" data-next="home">← Voltar</button><strong id="si-document-section">Ferramenta</strong><span class="si-tag">Rascunho</span></div>
         <div class="si-content">
+          <div class="si-document-identity"><span id="si-document-icon" class="si-hub-icon">✎</span><span><strong id="si-document-choice">Você escolheu um planejamento</strong><small>As perguntas abaixo são específicas para este documento.</small></span></div>
           <h2 id="si-document-title">Novo documento</h2>
           <p id="si-document-description" class="si-muted"></p>
+          <div class="si-builder-step" aria-label="Etapa 1 de 3"><span></span><span></span><span></span></div>
+          <p class="si-muted" style="font-size:12px;margin-top:7px">Etapa 1 de 3 · Conte o que precisa</p>
           <div class="si-card"><strong>Turma usada</strong><small id="si-document-classroom">Cadastre ou confira a turma antes de concluir.</small></div>
           <label class="si-field"><span class="si-label">Período ou data</span><input id="si-document-period" placeholder="Ex.: 1º bimestre ou 20/10/2026" maxlength="120"></label>
           <label class="si-field"><span id="si-document-focus-label" class="si-label">Tema ou foco principal</span><input id="si-document-focus" placeholder="Escreva em poucas palavras" maxlength="240"></label>
           <label class="si-field"><span id="si-document-context-label" class="si-label">O que precisa ser considerado?</span><textarea id="si-document-context" placeholder="Registre somente informações pedagógicas, sem diagnósticos ou dados sensíveis."></textarea></label>
           <label id="si-document-evidence-field" class="si-field"><span class="si-label">O que foi observado?</span><textarea id="si-document-evidence" placeholder="Descreva fatos, falas, gestos, participações e situações observáveis."></textarea></label>
           <p id="si-document-message" class="si-muted" style="margin-top:12px" role="status"></p>
+          <div class="si-result-preview"><strong>O que será criado</strong><p id="si-document-result-preview">Um documento organizado e pronto para ajustar, salvar ou imprimir.</p></div>
           <div class="si-note">Não informe nome completo, diagnóstico, endereço, data de nascimento ou dados de saúde de crianças.</div>
         </div>
-        <div class="si-actions"><button class="si-primary" type="button" data-generate-document>Gerar documento com IA</button><button class="si-secondary" type="button" data-save-document>Salvar rascunho neste aparelho</button><button class="si-secondary" type="button" data-next="bncc-search">Consultar BNCC antes de continuar</button></div>
+        <div class="si-actions"><button id="si-document-generate-label" class="si-primary" type="button" data-generate-document>Gerar documento com IA</button><button class="si-secondary" type="button" data-save-document>Salvar rascunho neste aparelho</button><button class="si-secondary" type="button" data-next="bncc-search">Consultar BNCC antes de continuar</button></div>
       </section>
 
       <section class="si-screen" data-panel="document-result" hidden>
@@ -2242,6 +2266,20 @@ html>body{padding:0}</style>
         'class-monitoring': { section: 'Relatórios', title: 'Acompanhamento da turma', description: 'Registre tendências coletivas, interesses e ajustes necessários no planejamento, sem expor crianças.', back: 'reports-hub', evidence: true, focus: 'O que você está acompanhando no grupo?', context: 'Em quais momentos da rotina isso tem aparecido?' },
         'observation-record': { section: 'Relatórios', title: 'Registro de observação', description: 'Separe fatos observáveis de interpretações para apoiar as próximas decisões pedagógicas.', back: 'reports-hub', evidence: true, focus: 'Qual situação ou experiência foi observada?', context: 'Onde, quando e em quais condições aconteceu?' }
       };
+      const documentExperience = {
+        'lesson-plan': { color: '#d46455', icon: '✎', choice: 'Você escolheu: Plano de aula', preview: 'Uma experiência completa com intenção, materiais, condução, observação e vínculos BNCC.', action: 'Criar meu plano de aula', period: 'Ex.: 20/10/2026 ou próxima terça-feira', focus: 'Ex.: sons do corpo e objetos da sala', context: 'Ex.: dentro da sala, 18 crianças, 25 minutos e materiais simples' },
+        'didactic-sequence': { color: '#60884d', icon: '↝', choice: 'Você escolheu: Sequência didática', preview: 'Uma sequência de encontros conectados, com progressão e continuidade entre as experiências.', action: 'Criar minha sequência', period: 'Ex.: 4 encontros durante novembro', focus: 'Ex.: investigar água, recipientes e movimentos', context: 'Informe quantidade de encontros, espaços e materiais disponíveis' },
+        'annual-plan': { color: '#805ca8', icon: '□', choice: 'Você escolheu: Planejamento anual', preview: 'Uma visão anual flexível, organizada por direitos e campos de experiência.', action: 'Criar planejamento anual', period: 'Ex.: Ano letivo de 2027', focus: 'Ex.: prioridades de convivência, expressão e exploração', context: 'Conte como é a turma e quais períodos ou eventos marcam o calendário' },
+        'pedagogical-project': { color: '#b57927', icon: '◇', choice: 'Você escolheu: Projeto pedagógico', preview: 'Um projeto com pergunta central, participação das crianças e possíveis desdobramentos.', action: 'Criar projeto pedagógico', period: 'Ex.: Outubro e novembro', focus: 'Ex.: De onde vêm as sombras?', context: 'Conte como o interesse surgiu e quais recursos estão disponíveis' },
+        'term-plan': { color: '#267f83', icon: '▦', choice: 'Você escolheu: Planejamento bimestral', preview: 'Prioridades e continuidades para o bimestre, sem dividir a rotina em disciplinas.', action: 'Criar planejamento bimestral', period: 'Ex.: 4º bimestre', focus: 'Ex.: experiências que merecem continuidade', context: 'Informe projetos, eventos e mudanças previstas no período' },
+        'themes-fields': { color: '#4f78c4', icon: '◎', choice: 'Você escolheu: Temas e Campos', preview: 'Possibilidades que conectam um tema aos campos de experiência da Educação Infantil.', action: 'Relacionar tema e campos', period: 'Ex.: Próximas duas semanas', focus: 'Ex.: bichos encontrados no jardim', context: 'Conte como o tema apareceu nas brincadeiras ou perguntas das crianças' },
+        'individual-report': { color: '#a85f91', icon: '◯', choice: 'Você escolheu: Relatório individual', preview: 'Um relato individual baseado em fatos, participação, aprendizagens e continuidades.', action: 'Criar relatório individual', period: 'Ex.: 2º semestre de 2026', focus: 'Ex.: participação nas brincadeiras e interações', context: 'Em quais momentos e experiências as observações aconteceram?', evidence: 'Descreva gestos, falas, escolhas e participações realmente observados' },
+        'descriptive-opinion': { color: '#476fae', icon: '≋', choice: 'Você escolheu: Parecer descritivo', preview: 'Uma síntese narrativa respeitosa do período, sem comparações ou rótulos.', action: 'Criar parecer descritivo', period: 'Ex.: 3º bimestre', focus: 'Ex.: síntese das vivências no período', context: 'Quais experiências ajudam a compreender o percurso?', evidence: 'Registre acontecimentos concretos que sustentam o parecer' },
+        'pedagogical-document': { color: '#bd664d', icon: '△', choice: 'Você escolheu: Documento pedagógico', preview: 'Um registro pedagógico de contexto e apoios, sem diagnóstico ou linguagem clínica.', action: 'Criar documento pedagógico', period: 'Ex.: Outubro de 2026', focus: 'Ex.: participação durante transições da rotina', context: 'Descreva ambiente, apoios e adaptações oferecidas', evidence: 'Registre somente o que foi observado no contexto pedagógico' },
+        'family-feedback': { color: '#b96b7c', icon: '♡', choice: 'Você escolheu: Feedback para famílias', preview: 'Uma mensagem acolhedora sobre vivências, conquistas e próximos passos.', action: 'Criar feedback para a família', period: 'Ex.: Semana de 19 a 23 de outubro', focus: 'Ex.: compartilhar uma conquista da semana', context: 'Qual experiência ajuda a família a compreender essa mensagem?', evidence: 'Conte o que aconteceu usando fatos simples e observáveis' },
+        'class-monitoring': { color: '#4d846b', icon: '♧', choice: 'Você escolheu: Acompanhamento da turma', preview: 'Uma leitura coletiva de interesses do grupo e ajustes possíveis no planejamento.', action: 'Criar acompanhamento da turma', period: 'Ex.: Outubro de 2026', focus: 'Ex.: interesses que aparecem nas brincadeiras livres', context: 'Em quais momentos da rotina isso aparece?', evidence: 'Registre tendências do grupo sem identificar nenhuma criança' },
+        'observation-record': { color: '#8b693d', icon: '⌕', choice: 'Você escolheu: Registro de observação', preview: 'Um registro que separa fatos observados de hipóteses e próximos passos pedagógicos.', action: 'Criar registro de observação', period: 'Ex.: 20/10/2026, período da manhã', focus: 'Ex.: exploração de argila em pequenos grupos', context: 'Onde, quando e em quais condições aconteceu?', evidence: 'Descreva falas, gestos, ações e interações sem interpretar ou diagnosticar' }
+      };
       const blockedDocumentTerms = /\b(diagn[oó]stico|autismo|tdah|cpf|rg|endere[cç]o|data de nascimento|laudo m[eé]dico)\b/i;
       let activeDocumentType = null;
       let activeGeneratedDocument = null;
@@ -2272,20 +2310,30 @@ html>body{padding:0}</style>
       }
       function openDocumentBuilder(typeKey) {
         const definition = documentTypes[typeKey];
+        const experience = documentExperience[typeKey];
         if (!definition) return;
         activeDocumentType = typeKey;
+        root.style.setProperty('--document-color', experience.color);
         root.querySelector('#si-document-section').textContent = definition.section;
+        root.querySelector('#si-document-icon').textContent = experience.icon;
+        root.querySelector('#si-document-choice').textContent = experience.choice;
         root.querySelector('#si-document-title').textContent = definition.title;
         root.querySelector('#si-document-description').textContent = definition.description;
+        root.querySelector('#si-document-result-preview').textContent = experience.preview;
+        root.querySelector('#si-document-generate-label').textContent = experience.action;
         root.querySelector('#si-document-back').dataset.next = definition.back;
         root.querySelector('#si-document-focus-label').textContent = definition.focus;
         root.querySelector('#si-document-context-label').textContent = definition.context;
         root.querySelector('#si-document-evidence-field').hidden = !definition.evidence;
         root.querySelector('#si-document-classroom').textContent = currentClassroomSummary();
         root.querySelector('#si-document-period').value = '';
+        root.querySelector('#si-document-period').placeholder = experience.period;
         root.querySelector('#si-document-focus').value = '';
+        root.querySelector('#si-document-focus').placeholder = experience.focus;
         root.querySelector('#si-document-context').value = '';
+        root.querySelector('#si-document-context').placeholder = experience.context;
         root.querySelector('#si-document-evidence').value = '';
+        root.querySelector('#si-document-evidence').placeholder = experience.evidence || 'Descreva fatos, falas, gestos e participações realmente observados.';
         setMessage(root.querySelector('#si-document-message'), '');
         show('document-builder');
       }
@@ -2565,7 +2613,7 @@ html>body{padding:0}</style>
             console.error('Falha na geração pedagógica', generationError);
           } finally {
             generateDocument.disabled = false;
-            generateDocument.textContent = 'Gerar documento com IA';
+            generateDocument.textContent = documentExperience[activeDocumentType]?.action || 'Gerar documento com IA';
           }
           return;
         }
