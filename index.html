@@ -1686,12 +1686,64 @@ html>body{padding:0}</style>
     #si-wireframes .si-scale { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin-top: 7px; }
     #si-wireframes .si-scale button { min-height: 44px; border: 1px solid var(--si-line); border-radius: 8px; background: var(--si-phone); color: var(--si-text); font: inherit; font-size: 12px; }
     #si-wireframes .si-scale button.on { background: var(--si-ink); color: var(--si-action-text); }
+    #si-wireframes .si-home-hero {
+      padding: 18px;
+      border-radius: 18px;
+      color: #ffffff;
+      background: linear-gradient(135deg, #356859 0%, #497f6e 100%);
+      box-shadow: 0 12px 28px rgba(53, 104, 89, .2);
+    }
+    #si-wireframes .si-home-hero h2 { color: #ffffff; }
+    #si-wireframes .si-home-hero .si-muted { color: rgba(255,255,255,.82); }
+    #si-wireframes .si-hub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; margin-top: 14px; }
+    #si-wireframes .si-hub-card {
+      min-height: 132px;
+      padding: 15px;
+      border: 1px solid var(--si-line);
+      border-radius: 16px;
+      color: var(--si-text);
+      background: #ffffff;
+      box-shadow: 0 5px 18px rgba(53, 104, 89, .06);
+      text-align: left;
+      font: inherit;
+      cursor: pointer;
+    }
+    #si-wireframes .si-hub-card:hover { border-color: #9eb7aa; transform: translateY(-1px); }
+    #si-wireframes .si-hub-icon { display: grid; width: 36px; height: 36px; place-items: center; margin-bottom: 12px; border-radius: 11px; background: var(--si-soft); color: var(--si-ink); font-size: 18px; }
+    #si-wireframes .si-hub-card strong { display: block; color: var(--si-ink); font-size: 14px; }
+    #si-wireframes .si-hub-card small { display: block; margin-top: 5px; color: var(--si-muted); font-size: 12px; line-height: 1.35; }
+    #si-wireframes .si-tool-list { display: grid; gap: 10px; margin-top: 16px; }
+    #si-wireframes .si-tool-button {
+      display: grid;
+      grid-template-columns: 40px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      width: 100%;
+      min-height: 72px;
+      padding: 12px 14px;
+      border: 1px solid var(--si-line);
+      border-radius: 14px;
+      color: var(--si-text);
+      background: #ffffff;
+      text-align: left;
+      font: inherit;
+      cursor: pointer;
+    }
+    #si-wireframes .si-tool-button:hover { border-color: #9eb7aa; background: #fbfdfb; }
+    #si-wireframes .si-tool-button strong { display: block; color: var(--si-ink); font-size: 14px; }
+    #si-wireframes .si-tool-button small { display: block; margin-top: 3px; color: var(--si-muted); font-size: 12px; line-height: 1.3; }
+    #si-wireframes .si-tool-arrow { color: var(--si-accent); font-size: 20px; }
+    #si-wireframes .si-draft-list:empty::before { content: "Nenhum rascunho salvo neste aparelho."; color: var(--si-muted); font-size: 13px; }
+    #si-wireframes .si-draft-item { margin-top: 8px; padding: 11px 12px; border: 1px solid var(--si-line); border-radius: 12px; background: #ffffff; }
+    #si-wireframes .si-draft-item strong { display: block; font-size: 13px; color: var(--si-ink); }
+    #si-wireframes .si-draft-item small { color: var(--si-muted); font-size: 11px; }
     @media (max-width: 420px) {
       #si-wireframes { padding: 0; background: var(--si-phone); }
       #si-wireframes .si-phone { border: 0; border-radius: 0; box-shadow: none; }
       #si-wireframes .si-content { padding-inline: 18px; }
       #si-wireframes .si-actions { padding-inline: 18px; }
       #si-wireframes .si-grid2 { grid-template-columns: 1fr; }
+      #si-wireframes .si-hub-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
 
@@ -1746,9 +1798,77 @@ html>body{padding:0}</style>
         <div id="si-enter-app" class="si-actions" hidden><button class="si-primary" type="button" data-next="profile">Entrar no aplicativo</button></div>
       </section>
 
+      <section class="si-screen" data-panel="home" hidden>
+        <div class="si-topbar"><strong>Meu caderno</strong><span class="si-tag">Neste aparelho</span></div>
+        <div class="si-content">
+          <div class="si-home-hero">
+            <h2>O que você precisa preparar?</h2>
+            <p class="si-muted">Escolha uma área. Sua turma e a faixa etária serão aproveitadas nos próximos passos.</p>
+          </div>
+          <div class="si-hub-grid">
+            <button class="si-hub-card" type="button" data-next="planning-hub"><span class="si-hub-icon">✎</span><strong>Planejamentos</strong><small>Planos, sequências, projetos e períodos.</small></button>
+            <button class="si-hub-card" type="button" data-next="reports-hub"><span class="si-hub-icon">▤</span><strong>Relatórios</strong><small>Registros, pareceres e comunicação com famílias.</small></button>
+            <button class="si-hub-card" type="button" data-next="bncc-search"><span class="si-hub-icon">◎</span><strong>Consulta BNCC</strong><small>Códigos por idade e o que cada um trabalha.</small></button>
+            <button class="si-hub-card" type="button" data-next="profile"><span class="si-hub-icon">♧</span><strong>Minha turma</strong><small>Idade, quantidade de crianças, adultos e tempo.</small></button>
+          </div>
+          <h3>Rascunhos recentes</h3>
+          <div id="si-draft-list" class="si-draft-list"></div>
+          <div class="si-note">Nesta fase, os rascunhos ficam somente neste navegador e não contêm identificação de crianças.</div>
+        </div>
+      </section>
+
+      <section class="si-screen" data-panel="planning-hub" hidden>
+        <div class="si-topbar"><button class="si-back" type="button" data-next="home">← Início</button><strong>Planejamentos</strong><span></span></div>
+        <div class="si-content">
+          <h2>O que você vai planejar?</h2>
+          <p class="si-muted">Todas as opções aproveitam os dados da turma e usam os grupos etários oficiais da BNCC.</p>
+          <div class="si-tool-list">
+            <button class="si-tool-button" type="button" data-next="profile"><span class="si-hub-icon">☼</span><span><strong>Planejamento semanal</strong><small>O fluxo principal já existente, com dias, espaço, intenção e revisão.</small></span><span class="si-tool-arrow">›</span></button>
+            <button class="si-tool-button" type="button" data-document-type="lesson-plan"><span class="si-hub-icon">✎</span><span><strong>Plano de aula BNCC</strong><small>Uma experiência com intenção, condução, observação e vínculos BNCC.</small></span><span class="si-tool-arrow">›</span></button>
+            <button class="si-tool-button" type="button" data-document-type="didactic-sequence"><span class="si-hub-icon">↝</span><span><strong>Sequência didática</strong><small>Experiências conectadas e progressivas ao longo de vários encontros.</small></span><span class="si-tool-arrow">›</span></button>
+            <button class="si-tool-button" type="button" data-document-type="annual-plan"><span class="si-hub-icon">□</span><span><strong>Planejamento anual</strong><small>Visão ampla, flexível e organizada pelos campos de experiência.</small></span><span class="si-tool-arrow">›</span></button>
+            <button class="si-tool-button" type="button" data-document-type="pedagogical-project"><span class="si-hub-icon">◇</span><span><strong>Projeto pedagógico</strong><small>Pergunta central, participação das crianças e possíveis desdobramentos.</small></span><span class="si-tool-arrow">›</span></button>
+            <button class="si-tool-button" type="button" data-document-type="term-plan"><span class="si-hub-icon">▦</span><span><strong>Planejamento bimestral</strong><small>Prioridades do período sem fragmentar as experiências das crianças.</small></span><span class="si-tool-arrow">›</span></button>
+            <button class="si-tool-button" type="button" data-document-type="themes-fields"><span class="si-hub-icon">◎</span><span><strong>Temas e Campos de Experiência</strong><small>Alternativa adequada à Educação Infantil para “unidades temáticas”.</small></span><span class="si-tool-arrow">›</span></button>
+          </div>
+        </div>
+      </section>
+
+      <section class="si-screen" data-panel="reports-hub" hidden>
+        <div class="si-topbar"><button class="si-back" type="button" data-next="home">← Início</button><strong>Relatórios</strong><span></span></div>
+        <div class="si-content">
+          <h2>Qual registro você precisa?</h2>
+          <p class="si-muted">Os textos serão baseados em fatos observados, sem comparação, classificação ou diagnóstico.</p>
+          <div class="si-tool-list">
+            <button class="si-tool-button" type="button" data-document-type="individual-report"><span class="si-hub-icon">◯</span><span><strong>Relatório individual</strong><small>Vivências, participação, aprendizagens e continuidades observadas.</small></span><span class="si-tool-arrow">›</span></button>
+            <button class="si-tool-button" type="button" data-document-type="descriptive-opinion"><span class="si-hub-icon">≋</span><span><strong>Parecer descritivo</strong><small>Síntese narrativa do período com linguagem respeitosa e objetiva.</small></span><span class="si-tool-arrow">›</span></button>
+            <button class="si-tool-button" type="button" data-document-type="pedagogical-document"><span class="si-hub-icon">△</span><span><strong>Documento pedagógico não clínico</strong><small>Registro de observações e barreiras do contexto, sem diagnóstico.</small></span><span class="si-tool-arrow">›</span></button>
+            <button class="si-tool-button" type="button" data-document-type="family-feedback"><span class="si-hub-icon">♡</span><span><strong>Feedback para famílias</strong><small>Comunicação acolhedora sobre vivências, conquistas e próximos passos.</small></span><span class="si-tool-arrow">›</span></button>
+            <button class="si-tool-button" type="button" data-document-type="class-monitoring"><span class="si-hub-icon">♧</span><span><strong>Acompanhamento da turma</strong><small>Tendências coletivas, interesses e ajustes para o planejamento.</small></span><span class="si-tool-arrow">›</span></button>
+            <button class="si-tool-button" type="button" data-document-type="observation-record"><span class="si-hub-icon">⌕</span><span><strong>Registro de observação</strong><small>Fatos do cotidiano, contexto, falas, gestos e hipóteses pedagógicas.</small></span><span class="si-tool-arrow">›</span></button>
+          </div>
+        </div>
+      </section>
+
+      <section class="si-screen" data-panel="document-builder" hidden>
+        <div class="si-topbar"><button id="si-document-back" class="si-back" type="button" data-next="home">← Voltar</button><strong id="si-document-section">Ferramenta</strong><span class="si-tag">Rascunho</span></div>
+        <div class="si-content">
+          <h2 id="si-document-title">Novo documento</h2>
+          <p id="si-document-description" class="si-muted"></p>
+          <div class="si-card"><strong>Turma usada</strong><small id="si-document-classroom">Cadastre ou confira a turma antes de concluir.</small></div>
+          <label class="si-field"><span class="si-label">Período ou data</span><input id="si-document-period" placeholder="Ex.: 1º bimestre ou 20/10/2026" maxlength="120"></label>
+          <label class="si-field"><span id="si-document-focus-label" class="si-label">Tema ou foco principal</span><input id="si-document-focus" placeholder="Escreva em poucas palavras" maxlength="240"></label>
+          <label class="si-field"><span id="si-document-context-label" class="si-label">O que precisa ser considerado?</span><textarea id="si-document-context" placeholder="Registre somente informações pedagógicas, sem diagnósticos ou dados sensíveis."></textarea></label>
+          <label id="si-document-evidence-field" class="si-field"><span class="si-label">O que foi observado?</span><textarea id="si-document-evidence" placeholder="Descreva fatos, falas, gestos, participações e situações observáveis."></textarea></label>
+          <p id="si-document-message" class="si-muted" style="margin-top:12px" role="status"></p>
+          <div class="si-note">Não informe nome completo, diagnóstico, endereço, data de nascimento ou dados de saúde de crianças.</div>
+        </div>
+        <div class="si-actions"><button class="si-primary" type="button" data-save-document>Salvar rascunho neste aparelho</button><button class="si-secondary" type="button" data-next="bncc-search">Consultar BNCC antes de continuar</button></div>
+      </section>
+
       <section class="si-screen" data-panel="profile" hidden>
         <div class="si-progress"><span style="width:38%"></span></div>
-        <div class="si-topbar"><span></span><strong>Sobre sua turma</strong><span class="si-tag">Neste aparelho</span></div>
+        <div class="si-topbar"><button class="si-back" type="button" data-next="home">← Início</button><strong>Sobre sua turma</strong><span class="si-tag">Neste aparelho</span></div>
         <div class="si-content">
           <h2>Como sua turma funciona?</h2>
           <p class="si-muted">Conte como é a turma. Usaremos essas informações para preparar atividades possíveis para você.</p>
@@ -1912,7 +2032,7 @@ html>body{padding:0}</style>
       </section>
 
       <section class="si-screen" data-panel="bncc-search" hidden>
-        <div class="si-topbar"><button class="si-back" type="button" data-next="request">← Pedido</button><strong>Consulta BNCC</strong><span class="si-tag">Educação Infantil</span></div>
+        <div class="si-topbar"><button class="si-back" type="button" data-bncc-back>← Voltar</button><strong>Consulta BNCC</strong><span class="si-tag">Educação Infantil</span></div>
         <div class="si-content">
           <h2>Quais códigos se aplicam a esta idade?</h2>
           <p class="si-muted">Informe apenas a idade. Não precisamos do nome nem da data de nascimento da criança.</p>
@@ -1930,7 +2050,7 @@ html>body{padding:0}</style>
             <div class="si-note">“O que trabalha” é uma explicação editorial e não substitui o texto oficial. Fonte: BNCC/MEC, versão verificada e registrada no banco.</div>
           </div>
         </div>
-        <div class="si-actions"><button class="si-primary" type="button" data-next="request">Voltar ao pedido da semana</button></div>
+        <div class="si-actions"><button class="si-primary" type="button" data-bncc-back>Voltar para onde eu estava</button></div>
       </section>
 
       <section class="si-screen" data-panel="family" hidden>
@@ -2094,8 +2214,66 @@ html>body{padding:0}</style>
         EI03: 'Crianças pequenas · 4 anos a 5 anos e 11 meses'
       };
       const bnccCache = new Map();
+      const documentTypes = {
+        'lesson-plan': { section: 'Planejamentos', title: 'Plano de aula BNCC', description: 'Organize uma experiência com intenção, condução, observação e objetivos BNCC adequados à faixa etária.', back: 'planning-hub', evidence: false, focus: 'O que você quer trabalhar?', context: 'Quais condições precisam ser consideradas?' },
+        'didactic-sequence': { section: 'Planejamentos', title: 'Sequência didática', description: 'Estruture experiências conectadas, com progressão flexível e continuidade entre os encontros.', back: 'planning-hub', evidence: false, focus: 'Qual é a intenção da sequência?', context: 'Quantos encontros e quais condições precisam ser consideradas?' },
+        'annual-plan': { section: 'Planejamentos', title: 'Planejamento anual', description: 'Registre prioridades amplas e flexíveis, articuladas aos direitos e campos de experiência.', back: 'planning-hub', evidence: false, focus: 'Quais são as prioridades do ano?', context: 'Quais características da turma e do calendário precisam ser consideradas?' },
+        'pedagogical-project': { section: 'Planejamentos', title: 'Projeto pedagógico', description: 'Parta de uma pergunta, interesse ou investigação que possa crescer com a participação das crianças.', back: 'planning-hub', evidence: false, focus: 'Qual é a pergunta ou tema mobilizador?', context: 'O que despertou esse interesse e quais recursos estão disponíveis?' },
+        'term-plan': { section: 'Planejamentos', title: 'Planejamento bimestral', description: 'Organize prioridades do período sem fragmentar as experiências em disciplinas.', back: 'planning-hub', evidence: false, focus: 'Quais experiências devem ganhar continuidade?', context: 'Há eventos, projetos ou mudanças previstos no período?' },
+        'themes-fields': { section: 'Planejamentos', title: 'Temas e Campos de Experiência', description: 'Na Educação Infantil, a BNCC se organiza por campos de experiência. Use temas como contexto, sem transformá-los em disciplinas.', back: 'planning-hub', evidence: false, focus: 'Qual tema ou interesse será explorado?', context: 'Como esse tema apareceu na rotina ou nas perguntas das crianças?' },
+        'individual-report': { section: 'Relatórios', title: 'Relatório individual', description: 'Organize vivências, participações, aprendizagens e continuidades com base em fatos observados.', back: 'reports-hub', evidence: true, focus: 'Qual aspecto pedagógico será documentado?', context: 'Em quais situações e contextos as observações aconteceram?' },
+        'descriptive-opinion': { section: 'Relatórios', title: 'Parecer descritivo', description: 'Prepare uma síntese narrativa do período sem comparar, classificar ou rotular a criança.', back: 'reports-hub', evidence: true, focus: 'Qual será o foco do parecer?', context: 'Quais experiências do período ajudam a contextualizar o parecer?' },
+        'pedagogical-document': { section: 'Relatórios', title: 'Documento pedagógico não clínico', description: 'Registre observações, apoios oferecidos e barreiras do contexto. Esta ferramenta não produz diagnóstico nem parecer clínico.', back: 'reports-hub', evidence: true, focus: 'Qual situação pedagógica precisa ser documentada?', context: 'Quais apoios, adaptações e condições do ambiente foram oferecidos?' },
+        'family-feedback': { section: 'Relatórios', title: 'Feedback para famílias', description: 'Organize uma comunicação acolhedora sobre vivências, conquistas e possibilidades de continuidade.', back: 'reports-hub', evidence: true, focus: 'Qual mensagem principal a família precisa receber?', context: 'Qual experiência ajuda a contextualizar essa comunicação?' },
+        'class-monitoring': { section: 'Relatórios', title: 'Acompanhamento da turma', description: 'Registre tendências coletivas, interesses e ajustes necessários no planejamento, sem expor crianças.', back: 'reports-hub', evidence: true, focus: 'O que você está acompanhando no grupo?', context: 'Em quais momentos da rotina isso tem aparecido?' },
+        'observation-record': { section: 'Relatórios', title: 'Registro de observação', description: 'Separe fatos observáveis de interpretações para apoiar as próximas decisões pedagógicas.', back: 'reports-hub', evidence: true, focus: 'Qual situação ou experiência foi observada?', context: 'Onde, quando e em quais condições aconteceu?' }
+      };
+      const blockedDocumentTerms = /\b(diagn[oó]stico|autismo|tdah|cpf|rg|endere[cç]o|data de nascimento|laudo m[eé]dico)\b/i;
+      let activeDocumentType = null;
+      let bnccReturnPanel = 'home';
       const localOnlyMode = true;
       let accessGranted = true;
+      function currentClassroomSummary() {
+        const name = root.querySelector('#si-classroom-name').value.trim();
+        const stage = root.querySelector('#si-classroom-stage');
+        const stageLabel = stage.selectedOptions[0]?.textContent || '';
+        return name && stage.value ? `${name} · ${stageLabel}` : 'Turma ainda não cadastrada';
+      }
+      function renderDrafts() {
+        const list = root.querySelector('#si-draft-list');
+        if (!list) return;
+        let drafts = [];
+        try { drafts = JSON.parse(localStorage.getItem('planejamento-infantil-drafts') || '[]'); } catch (error) { console.error('Falha ao ler rascunhos', error); }
+        list.replaceChildren(...drafts.slice(0, 4).map(draft => {
+          const item = document.createElement('div');
+          item.className = 'si-draft-item';
+          const title = document.createElement('strong');
+          title.textContent = draft.title;
+          const detail = document.createElement('small');
+          detail.textContent = `${draft.period || 'Período não informado'} · salvo em ${draft.saved_at}`;
+          item.append(title, detail);
+          return item;
+        }));
+      }
+      function openDocumentBuilder(typeKey) {
+        const definition = documentTypes[typeKey];
+        if (!definition) return;
+        activeDocumentType = typeKey;
+        root.querySelector('#si-document-section').textContent = definition.section;
+        root.querySelector('#si-document-title').textContent = definition.title;
+        root.querySelector('#si-document-description').textContent = definition.description;
+        root.querySelector('#si-document-back').dataset.next = definition.back;
+        root.querySelector('#si-document-focus-label').textContent = definition.focus;
+        root.querySelector('#si-document-context-label').textContent = definition.context;
+        root.querySelector('#si-document-evidence-field').hidden = !definition.evidence;
+        root.querySelector('#si-document-classroom').textContent = currentClassroomSummary();
+        root.querySelector('#si-document-period').value = '';
+        root.querySelector('#si-document-focus').value = '';
+        root.querySelector('#si-document-context').value = '';
+        root.querySelector('#si-document-evidence').value = '';
+        setMessage(root.querySelector('#si-document-message'), '');
+        show('document-builder');
+      }
       async function loadBncc(stage) {
         if (bnccCache.has(stage)) return bnccCache.get(stage);
         const query = new URLSearchParams({
@@ -2269,8 +2447,56 @@ html>body{padding:0}</style>
         if (!force && name !== 'auth' && !accessGranted) name = 'auth';
         panels.forEach(panel => { panel.hidden = panel.dataset.panel !== name; });
         steps.forEach(step => { step.setAttribute('aria-pressed', String(step.dataset.screen === name)); });
+        if (name === 'home') renderDrafts();
       }
       root.addEventListener('click', async event => {
+        const bnccBack = event.target.closest('[data-bncc-back]');
+        if (bnccBack) {
+          show(bnccReturnPanel);
+          return;
+        }
+        const documentType = event.target.closest('[data-document-type]');
+        if (documentType) {
+          openDocumentBuilder(documentType.dataset.documentType);
+          return;
+        }
+        const saveDocument = event.target.closest('[data-save-document]');
+        if (saveDocument) {
+          const definition = documentTypes[activeDocumentType];
+          const period = root.querySelector('#si-document-period').value.trim();
+          const focus = root.querySelector('#si-document-focus').value.trim();
+          const context = root.querySelector('#si-document-context').value.trim();
+          const evidence = root.querySelector('#si-document-evidence').value.trim();
+          const message = root.querySelector('#si-document-message');
+          if (!definition || !period || !focus || !context || (definition.evidence && !evidence)) {
+            setMessage(message, 'Preencha o período, o foco e os campos pedagógicos antes de salvar.');
+            return;
+          }
+          if (blockedDocumentTerms.test(`${focus} ${context} ${evidence}`)) {
+            setMessage(message, 'Retire diagnósticos, documentos pessoais e informações clínicas. Registre somente fatos pedagógicos observáveis.');
+            return;
+          }
+          const draft = {
+            id: globalThis.crypto?.randomUUID?.() || String(Date.now()),
+            type: activeDocumentType,
+            title: definition.title,
+            classroom: currentClassroomSummary(),
+            period,
+            focus,
+            context,
+            evidence: definition.evidence ? evidence : '',
+            saved_at: new Date().toLocaleString('pt-BR')
+          };
+          try {
+            const drafts = JSON.parse(localStorage.getItem('planejamento-infantil-drafts') || '[]');
+            localStorage.setItem('planejamento-infantil-drafts', JSON.stringify([draft, ...drafts].slice(0, 20)));
+            setMessage(message, 'Rascunho salvo neste aparelho. A geração do documento será conectada ao motor em uma próxima etapa.', true);
+          } catch (storageError) {
+            setMessage(message, 'Não foi possível salvar o rascunho neste aparelho.');
+            console.error('Falha ao salvar rascunho', storageError);
+          }
+          return;
+        }
         const sendMagicLink = event.target.closest('[data-send-magic-link]');
         if (sendMagicLink) {
           const emailInput = root.querySelector('#si-auth-email');
@@ -2377,6 +2603,9 @@ html>body{padding:0}</style>
         if (screen) show(screen.dataset.screen);
         if (next) {
           if (next.dataset.next === 'review' && !prepareReview()) return;
+          if (next.dataset.next === 'bncc-search') {
+            bnccReturnPanel = root.querySelector('[data-panel]:not([hidden])')?.dataset.panel || 'home';
+          }
           show(next.dataset.next);
         }
         const search = event.target.closest('[data-bncc-search]');
@@ -2412,7 +2641,7 @@ html>body{padding:0}</style>
           toggle.classList.toggle('on');
         }
       });
-      show(localOnlyMode ? 'profile' : 'auth', true);
+      show(localOnlyMode ? 'home' : 'auth', true);
       if (localOnlyMode) loadClassroom();
       else refreshAuthUI();
     })();
