@@ -1752,7 +1752,7 @@ html>body{padding:0}</style>
           <p id="si-request-message" class="si-muted" style="margin-top:12px" role="status"></p>
           <div class="si-note">Não inclua nomes, diagnósticos ou informações identificáveis de crianças.</div>
         </div>
-        <div class="si-actions"><button class="si-primary" type="button" data-next="review">Revisar pedido</button></div>
+        <div class="si-actions"><button class="si-primary" type="button" data-next="review">Revisar pedido</button><button class="si-secondary" type="button" data-next="bncc-search">Consultar códigos da BNCC</button></div>
       </section>
 
       <section class="si-screen" data-panel="week" hidden>
@@ -1886,7 +1886,7 @@ html>body{padding:0}</style>
       </section>
 
       <section class="si-screen" data-panel="bncc-search" hidden>
-        <div class="si-topbar"><strong>Consulta BNCC</strong><span class="si-tag">Educação Infantil</span></div>
+        <div class="si-topbar"><button class="si-back" type="button" data-next="request">← Pedido</button><strong>Consulta BNCC</strong><span class="si-tag">Educação Infantil</span></div>
         <div class="si-content">
           <h2>Quais códigos se aplicam a esta idade?</h2>
           <p class="si-muted">Informe apenas a idade. Não precisamos do nome nem da data de nascimento da criança.</p>
@@ -1904,7 +1904,7 @@ html>body{padding:0}</style>
             <div class="si-note">“O que trabalha” é uma explicação editorial e não substitui o texto oficial. Fonte: BNCC/MEC, versão verificada e registrada no banco.</div>
           </div>
         </div>
-        <div class="si-nav"><button type="button">Início</button><button type="button" data-next="history">Semanas</button><button type="button" class="active">BNCC</button><button type="button">Turmas</button><button type="button" data-next="subscription">Conta</button></div>
+        <div class="si-actions"><button class="si-primary" type="button" data-next="request">Voltar ao pedido da semana</button></div>
       </section>
 
       <section class="si-screen" data-panel="family" hidden>
