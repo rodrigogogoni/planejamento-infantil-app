@@ -1726,28 +1726,28 @@ html>body{padding:0}</style>
         <div class="si-content">
           <h2>Como sua turma funciona?</h2>
           <p class="si-muted">Esses dados ajudam a selecionar propostas possíveis para sua realidade.</p>
-          <label class="si-field"><span class="si-label">Nome da turma</span><input id="si-classroom-name" value="Maternal II" maxlength="120" autocomplete="off"></label>
-          <label class="si-field"><span class="si-label">Faixa BNCC</span><select id="si-classroom-stage" aria-label="Faixa BNCC"><option value="EI01">Bebês · 0 a 1 ano e 6 meses</option><option value="EI02" selected>Crianças bem pequenas · 1 ano e 7 meses a 3 anos e 11 meses</option><option value="EI03">Crianças pequenas · 4 anos a 5 anos e 11 meses</option></select></label>
+          <label class="si-field"><span class="si-label">Nome da turma</span><input id="si-classroom-name" placeholder="Ex.: Maternal II · turma da manhã" maxlength="120" autocomplete="off"></label>
+          <label class="si-field"><span class="si-label">Faixa BNCC</span><select id="si-classroom-stage" aria-label="Faixa BNCC"><option value="" selected disabled>Selecione a faixa etária</option><option value="EI01">Bebês · 0 a 1 ano e 6 meses</option><option value="EI02">Crianças bem pequenas · 1 ano e 7 meses a 3 anos e 11 meses</option><option value="EI03">Crianças pequenas · 4 anos a 5 anos e 11 meses</option></select></label>
           <div class="si-grid2">
-            <label class="si-field"><span class="si-label">Quantidade de crianças</span><input id="si-children-count" type="number" min="1" max="99" value="18" inputmode="numeric" aria-label="Quantidade de crianças"></label>
-            <label class="si-field"><span class="si-label">Adultos disponíveis</span><input id="si-adults-count" type="number" min="1" max="20" value="2" inputmode="numeric" aria-label="Adultos disponíveis"></label>
+            <label class="si-field"><span class="si-label">Quantidade de crianças</span><input id="si-children-count" type="number" min="1" max="99" placeholder="Ex.: 18" inputmode="numeric" aria-label="Quantidade de crianças"></label>
+            <label class="si-field"><span class="si-label">Adultos disponíveis</span><input id="si-adults-count" type="number" min="1" max="20" placeholder="Ex.: 2" inputmode="numeric" aria-label="Adultos disponíveis"></label>
           </div>
-          <label class="si-field"><span class="si-label">Tempo usual para uma proposta</span><select id="si-directed-time" aria-label="Tempo usual"><option value="15">15 minutos</option><option value="25" selected>25 minutos</option><option value="40">40 minutos</option></select></label>
+          <label class="si-field"><span class="si-label">Tempo usual para uma proposta</span><select id="si-directed-time" aria-label="Tempo usual"><option value="" selected disabled>Selecione o tempo aproximado</option><option value="15">15 minutos</option><option value="25">25 minutos</option><option value="40">40 minutos</option></select></label>
           <p id="si-classroom-message" class="si-muted" style="margin-top:12px" role="status"></p>
           <div class="si-note">Você poderá alterar estas informações quando a realidade da turma mudar.</div>
         </div>
-        <div class="si-actions"><button class="si-primary" type="button" data-save-classroom>Salvar turma</button><button class="si-secondary" type="button" data-next="request">Continuar sem salvar</button></div>
+        <div class="si-actions"><button class="si-primary" type="button" data-save-classroom>Salvar e continuar</button></div>
       </section>
 
       <section class="si-screen" data-panel="request" hidden>
         <div class="si-progress"><span style="width:74%"></span></div>
         <div class="si-topbar"><button class="si-back" type="button" data-next="profile">← Voltar</button><strong>Criar semana</strong><button class="si-link" type="button">Salvar</button></div>
         <div class="si-content">
-          <span class="si-tag">Maternal II · 18 crianças · 2 adultos</span>
+          <span id="si-request-classroom" class="si-tag">Turma ainda não informada</span>
           <h2 style="margin-top:12px">O que orienta esta semana?</h2>
-          <label class="si-field"><span class="si-label">Dias</span><span class="si-days"><button class="si-day on" type="button">Seg</button><button class="si-day on" type="button">Ter</button><button class="si-day on" type="button">Qua</button><button class="si-day on" type="button">Qui</button><button class="si-day" type="button">Sex</button></span></label>
-          <label class="si-field"><span class="si-label">Tema, interesse observado ou objetivo</span><textarea aria-label="Intenção da semana">Explorar sombras, movimentos e mudanças de luz.</textarea></label>
-          <label class="si-field"><span class="si-label">Mudança temporária</span><textarea aria-label="Mudança temporária">O pátio pode ficar indisponível.</textarea></label>
+          <label class="si-field"><span class="si-label">Dias</span><span class="si-days"><button class="si-day" type="button">Seg</button><button class="si-day" type="button">Ter</button><button class="si-day" type="button">Qua</button><button class="si-day" type="button">Qui</button><button class="si-day" type="button">Sex</button></span></label>
+          <label class="si-field"><span class="si-label">Tema, interesse observado ou objetivo</span><textarea aria-label="Intenção da semana" placeholder="Ex.: As crianças demonstraram interesse por sombras e movimentos de luz."></textarea></label>
+          <label class="si-field"><span class="si-label">Mudança temporária</span><textarea aria-label="Mudança temporária" placeholder="Ex.: Nesta semana o pátio estará indisponível. Se não houver mudança, deixe em branco."></textarea></label>
           <div class="si-note">Não inclua nomes, diagnósticos ou informações identificáveis de crianças.</div>
         </div>
         <div class="si-actions"><button class="si-primary" type="button" data-next="review">Revisar pedido</button></div>
@@ -2107,6 +2107,9 @@ html>body{padding:0}</style>
         element.classList.toggle('si-success', success);
         element.classList.toggle('si-error', !success && Boolean(text));
       }
+      function updateClassroomSummary(name, children, adults) {
+        root.querySelector('#si-request-classroom').textContent = `${name} · ${children} crianças · ${adults} adultos`;
+      }
       async function loadClassroom() {
         if (!supabaseClient) return;
         const { data: { user } } = await supabaseClient.auth.getUser();
@@ -2125,6 +2128,7 @@ html>body{padding:0}</style>
         root.querySelector('#si-children-count').value = data.children_count;
         root.querySelector('#si-adults-count').value = data.adults_count;
         root.querySelector('#si-directed-time').value = data.directed_time_minutes;
+        updateClassroomSummary(data.name, data.children_count, data.adults_count);
         setMessage(root.querySelector('#si-classroom-message'), 'Turma carregada da sua conta.', true);
       }
       async function refreshAuthUI() {
@@ -2231,22 +2235,27 @@ html>body{padding:0}</style>
             return;
           }
           const stage = root.querySelector('#si-classroom-stage').value;
-          const [ageMin, ageMax] = stageAges[stage];
+          const ages = stageAges[stage];
+          const childrenCount = Number(root.querySelector('#si-children-count').value);
+          const adultsCount = Number(root.querySelector('#si-adults-count').value);
+          const directedTime = Number(root.querySelector('#si-directed-time').value);
+          const classroomName = root.querySelector('#si-classroom-name').value.trim();
+          if (!classroomName || !ages || childrenCount < 1 || childrenCount > 99 || adultsCount < 1 || adultsCount > 20 || !directedTime) {
+            setMessage(message, 'Preencha todos os campos da turma antes de continuar.');
+            return;
+          }
+          const [ageMin, ageMax] = ages;
           const payload = {
             user_id: user.id,
-            name: root.querySelector('#si-classroom-name').value.trim(),
+            name: classroomName,
             stage,
             age_min_months: ageMin,
             age_max_months: ageMax,
-            children_count: Number(root.querySelector('#si-children-count').value),
-            adults_count: Number(root.querySelector('#si-adults-count').value),
-            directed_time_minutes: Number(root.querySelector('#si-directed-time').value),
+            children_count: childrenCount,
+            adults_count: adultsCount,
+            directed_time_minutes: directedTime,
             active: true
           };
-          if (!payload.name || payload.children_count < 1 || payload.children_count > 99 || payload.adults_count < 1 || payload.adults_count > 20) {
-            setMessage(message, 'Revise o nome e as quantidades informadas.');
-            return;
-          }
           saveClassroom.disabled = true;
           const { data: existing } = await supabaseClient.from('classrooms').select('id')
             .eq('user_id', user.id).eq('active', true)
@@ -2257,6 +2266,10 @@ html>body{padding:0}</style>
           const { error } = await query;
           saveClassroom.disabled = false;
           setMessage(message, error ? 'Não foi possível salvar a turma.' : 'Turma salva com segurança.', !error);
+          if (!error) {
+            updateClassroomSummary(classroomName, childrenCount, adultsCount);
+            show('request');
+          }
           return;
         }
         const screen = event.target.closest('[data-screen]');
@@ -2298,7 +2311,6 @@ html>body{padding:0}</style>
       });
       show('auth', true);
       refreshAuthUI();
-      root.querySelector('[data-bncc-search]').click();
     })();
   </script>
 </div>
