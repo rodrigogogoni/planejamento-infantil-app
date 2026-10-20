@@ -1487,293 +1487,7 @@ svg.lucide {
 html>body{padding:0}</style>
 </head>
 <body>
-<script type="application/json" id="codex-visualization-widget-state">__CODEX_VISUALIZATION_WIDGET_STATE__</script>
-<script>(() => {
-  const root = document.documentElement;
-  const mediaQuery = globalThis.matchMedia("(prefers-color-scheme: dark)");
-  const apply = Reflect.apply;
-  const isArray = Array.isArray;
-  const hasOwn = Object.hasOwn;
-  const parentWindow = globalThis.parent;
-  const stringify = JSON.stringify;
-  const parse = JSON.parse;
-  const encode = TextEncoder.prototype.encode.bind(new TextEncoder());
-  const initialStateElement = document.getElementById(
-    "codex-visualization-widget-state",
-  );
-  const initialGlobals = parse(initialStateElement?.textContent ?? "{}");
-  initialStateElement?.remove();
-  /** @type {Record<string, unknown> | null} */
-  let state = initialGlobals.widgetState ?? null;
-  const statePersistence = initialGlobals.statePersistence ?? "none";
-  let nextStateRequestId = 0;
-  /** @type {Map<number, { resolve: () => void; reject: (error: Error) => void; timeout: ReturnType<typeof globalThis.setTimeout>; serializedState: string }>} */
-  const pendingStateWrites = new Map();
-  const persistenceError = () =>
-    Object.assign(
-      new Error("The host could not persist the widget state update"),
-      {
-        code: -32000,
-        data: { code: "widget_state_persistence_failed", retryable: false },
-      },
-    );
-  /**
-   * @param {object} prototype
-   * @param {string} property
-   */
-  const getPrototypeGetter = (prototype, property) => {
-    // oxlint-disable-next-line typescript/unbound-method -- invoked through captured Reflect.apply
-    const getter = Object.getOwnPropertyDescriptor(prototype, property)?.get;
-    if (getter == null) {
-      throw new Error(`Missing ${property} getter`);
-    }
-    return getter;
-  };
-  const getMessageData = getPrototypeGetter(MessageEvent.prototype, "data");
-  const getMessagePorts = getPrototypeGetter(MessageEvent.prototype, "ports");
-  const getMessageSource = getPrototypeGetter(MessageEvent.prototype, "source");
-  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
-  const addHostMessageListener = MessagePort.prototype.addEventListener;
-  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
-  const postHostMessage = MessagePort.prototype.postMessage;
-  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
-  const startHostPort = MessagePort.prototype.start;
-  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
-  const stopMessagePropagation = Event.prototype.stopImmediatePropagation;
-  /** @type {MessagePort | null} */
-  let hostPort = null;
-  const postToHost = (type, payload) => {
-    if (hostPort != null) {
-      apply(postHostMessage, hostPort, [{ type, ...payload }]);
-    }
-  };
-  const openExternal = ({ href }) => {
-    if (globalThis.navigator.userActivation?.isActive === true) {
-      postToHost("open-external", { href });
-    }
-  };
-  const sendFollowUpMessage = ({ context, prompt, title }) => {
-    if (globalThis.navigator.userActivation?.isActive === true) {
-      postToHost("follow-up", { context, prompt, title });
-    }
-    return Promise.resolve();
-  };
-  /**
-   * @param {Record<string, unknown> | ((previous: Record<string, unknown> | null) => Record<string, unknown>)} next
-   * @returns {Promise<void>}
-   */
-  const setWidgetState = async (next) => {
-    const nextState = typeof next === "function" ? next(state) : next;
-    if (
-      nextState == null ||
-      typeof nextState !== "object" ||
-      isArray(nextState)
-    ) {
-      throw new TypeError("Widget state must be a JSON object");
-    }
-    const inputState = stringify(
-      nextState,
-      (_key, /** @type {unknown} */ value) => {
-        if (
-          typeof value === "undefined" ||
-          typeof value === "function" ||
-          typeof value === "symbol" ||
-          (typeof value === "number" && !Number.isFinite(value))
-        ) {
-          throw new TypeError("Widget state must be a JSON object");
-        }
-        return value;
-      },
-    );
-    const parsedState = parse(inputState);
-    if (
-      parsedState == null ||
-      typeof parsedState !== "object" ||
-      isArray(parsedState)
-    ) {
-      throw new TypeError("Widget state must be a JSON object");
-    }
-    const storedState = {
-      modelContent: null,
-      privateContent: null,
-      ...parsedState,
-    };
-    const serializedState = stringify(storedState);
-    if (encode(serializedState).length > 16 * 1024) {
-      throw new TypeError(
-        "Widget state must be a JSON object of at most 16 KiB",
-      );
-    }
-    if (
-      hasOwn(storedState, "imageIds") &&
-      (!isArray(storedState.imageIds) ||
-        storedState.imageIds.some(
-          (/** @type {unknown} */ id) => typeof id !== "string",
-        ))
-    ) {
-      throw new TypeError("Widget state imageIds must be an array of strings");
-    }
-    if (storedState.imageIds?.length > 0) {
-      throw Object.assign(
-        new TypeError("Visualization state does not support image attachments"),
-        { code: -32602, data: { code: "images_unsupported" } },
-      );
-    }
-    state = storedState;
-    globalThis.openai.widgetState = state;
-    globalThis.dispatchEvent(
-      new CustomEvent("openai:set_globals", {
-        detail: { globals: { widgetState: state } },
-      }),
-    );
-    if (statePersistence === "none") {
-      throw persistenceError();
-    }
-    const id = ++nextStateRequestId;
-    return new Promise((resolve, reject) => {
-      const timeout = globalThis.setTimeout(() => {
-        pendingStateWrites.delete(id);
-        reject(persistenceError());
-      }, 30_000);
-      pendingStateWrites.set(id, { resolve, reject, timeout, serializedState });
-      postToHost("widget-state-write", { id, state: serializedState });
-    });
-  };
-  const syncTheme = () => {
-    const theme = mediaQuery.matches ? "dark" : "light";
-    root.dataset.theme = theme;
-    globalThis.openai = {
-      ...globalThis.openai,
-      openExternal,
-      sendFollowUpMessage,
-      setWidgetState,
-      theme,
-      visualizationStyleVariables: {},
-      visualizationTheme: theme,
-      widgetState: state,
-      statePersistence,
-      stateModelContext: "none",
-    };
-    globalThis.dispatchEvent(
-      new CustomEvent("openai:set_globals", {
-        detail: { globals: globalThis.openai },
-      }),
-    );
-  };
-  const sendHeight = () => {
-    postToHost("height", {
-      height: Math.ceil(
-        Math.max(
-          document.body.scrollHeight,
-          document.body.getBoundingClientRect().height,
-        ),
-      ),
-    });
-  };
-
-  globalThis.addEventListener(
-    "message",
-    (event) => {
-      const data = apply(getMessageData, event, []);
-      const ports = apply(getMessagePorts, event, []);
-      const source = apply(getMessageSource, event, []);
-      if (
-        hostPort != null ||
-        source !== parentWindow ||
-        typeof data !== "object" ||
-        data?.type !== "codex-visualization-initialize" ||
-        !isArray(ports) ||
-        ports.length !== 1
-      ) {
-        return;
-      }
-      apply(stopMessagePropagation, event, []);
-      const nextHostPort = ports[0];
-      try {
-        apply(addHostMessageListener, nextHostPort, [
-          "message",
-          (event) => {
-            const data = apply(getMessageData, event, []);
-            if (typeof data === "object" && data?.type === "measure") {
-              sendHeight();
-            } else if (
-              typeof data === "object" &&
-              data?.type === "widget-state-result"
-            ) {
-              /** @type {unknown} */
-              const id = data.id;
-              if (typeof id !== "number") {
-                return;
-              }
-              const pending = pendingStateWrites.get(id);
-              if (pending != null) {
-                pendingStateWrites.delete(id);
-                globalThis.clearTimeout(pending.timeout);
-                if (data.ok === true) {
-                  pending.resolve();
-                } else {
-                  pending.reject(persistenceError());
-                }
-              }
-            }
-          },
-        ]);
-        apply(startHostPort, nextHostPort, []);
-      } catch {
-        return;
-      }
-      hostPort = nextHostPort;
-      for (const [id, { serializedState }] of pendingStateWrites) {
-        postToHost("widget-state-write", { id, state: serializedState });
-      }
-      sendHeight();
-    },
-    { capture: true },
-  );
-  document.currentScript?.remove();
-  mediaQuery.addEventListener("change", syncTheme);
-  globalThis.addEventListener("click", (event) => {
-    if (event.defaultPrevented) {
-      return;
-    }
-    let element = null;
-    if (event.target instanceof globalThis.Element) {
-      element = event.target;
-    } else if (event.target instanceof globalThis.Node) {
-      element = event.target.parentElement;
-    }
-    const link = element?.closest("a[href]");
-    const href = link?.getAttribute("href");
-    if (href == null) {
-      return;
-    }
-    if (href.startsWith("#")) {
-      let id;
-      try {
-        id = decodeURIComponent(href.slice(1));
-      } catch {
-        return;
-      }
-      const target = id.length === 0 ? root : document.getElementById(id);
-      if (
-        target == null ||
-        globalThis.navigator.userActivation?.isActive !== true
-      ) {
-        return;
-      }
-      event.preventDefault();
-      postToHost("scroll-to", {
-        top: target.getBoundingClientRect().top + globalThis.scrollY,
-      });
-      return;
-    }
-    event.preventDefault();
-    openExternal({ href });
-  });
-  new ResizeObserver(sendHeight).observe(document.body);
-  syncTheme();
-})();
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <div id="si-wireframes" class="viz-dotted-background">
   <style>
     #si-wireframes {
@@ -1945,6 +1659,7 @@ html>body{padding:0}</style>
     #si-wireframes .si-bncc-results { margin-top: 15px; }
     #si-wireframes .si-bncc-results h3 { margin-top: 12px; }
     #si-wireframes .si-error { color: light-dark(#8a251f, #ffaaa3); }
+    #si-wireframes .si-success { color: light-dark(#176b3a, #86efac); }
     #si-wireframes .si-scale { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin-top: 7px; }
     #si-wireframes .si-scale button { min-height: 44px; border: 1px solid var(--si-line); border-radius: 8px; background: var(--si-phone); color: var(--si-text); font: inherit; font-size: 12px; }
     #si-wireframes .si-scale button.on { background: var(--si-ink); color: var(--si-action-text); }
@@ -1956,6 +1671,7 @@ html>body{padding:0}</style>
 
   <div class="si-shell">
     <div class="si-flow" role="group" aria-label="Telas do fluxo">
+      <button class="si-step" type="button" data-screen="auth" aria-pressed="false">Entrar</button>
       <button class="si-step" type="button" data-screen="profile" aria-pressed="true">Perfil</button>
       <button class="si-step" type="button" data-screen="request" aria-pressed="false">Pedido</button>
       <button class="si-step" type="button" data-screen="week" aria-pressed="false">Semana</button>
@@ -1982,20 +1698,42 @@ html>body{padding:0}</style>
     <div class="si-phone" aria-live="polite">
       <div class="si-status"><span>9:41</span><span>Wireframe mobile · baixa fidelidade</span></div>
 
+      <section class="si-screen" data-panel="auth" hidden>
+        <div class="si-topbar"><strong>Minha conta</strong><span id="si-auth-state" class="si-tag">Verificando…</span></div>
+        <div class="si-content">
+          <h2>Entre para salvar seu trabalho</h2>
+          <p class="si-muted">Enviaremos um link seguro para seu e-mail. Não é necessário criar senha.</p>
+          <div id="si-auth-logged-out">
+            <label class="si-field"><span class="si-label">E-mail da professora</span><input id="si-auth-email" type="email" autocomplete="email" placeholder="professora@escola.com.br"></label>
+            <button class="si-primary" style="margin-top:15px" type="button" data-send-magic-link>Enviar link de acesso</button>
+          </div>
+          <div id="si-auth-logged-in" hidden>
+            <div class="si-card"><strong>Conta conectada</strong><small id="si-auth-user-email"></small></div>
+            <button class="si-secondary" type="button" data-sign-out>Sair desta conta</button>
+          </div>
+          <p id="si-auth-message" class="si-muted" style="margin-top:12px" role="status"></p>
+          <div class="si-note">Os dados são vinculados à conta da professora. Não cadastre nomes, diagnósticos ou informações identificáveis de crianças.</div>
+        </div>
+        <div class="si-actions"><button class="si-primary" type="button" data-next="profile">Continuar para a turma</button></div>
+      </section>
+
       <section class="si-screen" data-panel="profile">
         <div class="si-progress"><span style="width:38%"></span></div>
         <div class="si-topbar"><button class="si-back" type="button">← Voltar</button><strong>Primeira turma</strong><span></span></div>
         <div class="si-content">
           <h2>Como sua turma funciona?</h2>
           <p class="si-muted">Esses dados ajudam a selecionar propostas possíveis para sua realidade.</p>
+          <label class="si-field"><span class="si-label">Nome da turma</span><input id="si-classroom-name" value="Maternal II" maxlength="120" autocomplete="off"></label>
+          <label class="si-field"><span class="si-label">Faixa BNCC</span><select id="si-classroom-stage" aria-label="Faixa BNCC"><option value="EI01">Bebês · 0 a 1 ano e 6 meses</option><option value="EI02" selected>Crianças bem pequenas · 1 ano e 7 meses a 3 anos e 11 meses</option><option value="EI03">Crianças pequenas · 4 anos a 5 anos e 11 meses</option></select></label>
           <div class="si-grid2">
-            <label class="si-field"><span class="si-label">Quantidade de crianças</span><input value="18" inputmode="numeric" aria-label="Quantidade de crianças"></label>
-            <label class="si-field"><span class="si-label">Adultos disponíveis</span><input value="2" inputmode="numeric" aria-label="Adultos disponíveis"></label>
+            <label class="si-field"><span class="si-label">Quantidade de crianças</span><input id="si-children-count" type="number" min="1" max="99" value="18" inputmode="numeric" aria-label="Quantidade de crianças"></label>
+            <label class="si-field"><span class="si-label">Adultos disponíveis</span><input id="si-adults-count" type="number" min="1" max="20" value="2" inputmode="numeric" aria-label="Adultos disponíveis"></label>
           </div>
-          <label class="si-field"><span class="si-label">Tempo usual para uma proposta</span><select aria-label="Tempo usual"><option>25 minutos</option></select></label>
+          <label class="si-field"><span class="si-label">Tempo usual para uma proposta</span><select id="si-directed-time" aria-label="Tempo usual"><option value="15">15 minutos</option><option value="25" selected>25 minutos</option><option value="40">40 minutos</option></select></label>
+          <p id="si-classroom-message" class="si-muted" style="margin-top:12px" role="status"></p>
           <div class="si-note">Você poderá alterar estas informações quando a realidade da turma mudar.</div>
         </div>
-        <div class="si-actions"><button class="si-primary" type="button" data-next="request">Continuar</button></div>
+        <div class="si-actions"><button class="si-primary" type="button" data-save-classroom>Salvar turma</button><button class="si-secondary" type="button" data-next="request">Continuar sem salvar</button></div>
       </section>
 
       <section class="si-screen" data-panel="request" hidden>
@@ -2315,6 +2053,10 @@ html>body{padding:0}</style>
       const panels = [...root.querySelectorAll('[data-panel]')];
       const supabaseUrl = 'https://qrmvcmlaeuaslrocqelr.supabase.co';
       const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFybXZjbWxhZXVhc2xyb2NxZWxyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI0NTA5MjgsImV4cCI6MjEwODAyNjkyOH0.pYK20rtSwZDhObGWTLq8YuYc52pa_EFLn3p_ABZR-5M';
+      const supabaseClient = window.supabase?.createClient(supabaseUrl, supabaseAnonKey, {
+        auth: { persistSession: true, detectSessionInUrl: true, flowType: 'pkce' }
+      });
+      const stageAges = { EI01: [0, 18], EI02: [19, 47], EI03: [48, 71] };
       const bnccLabels = {
         EI01: 'Bebês · 0 a 1 ano e 6 meses',
         EI02: 'Crianças bem pequenas · 1 ano e 7 meses a 3 anos e 11 meses',
@@ -2356,11 +2098,118 @@ html>body{padding:0}</style>
           return card;
         }));
       }
+      function setMessage(element, text, success = false) {
+        element.textContent = text;
+        element.classList.toggle('si-success', success);
+        element.classList.toggle('si-error', !success && Boolean(text));
+      }
+      async function loadClassroom() {
+        if (!supabaseClient) return;
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        if (!user) return;
+        const { data, error } = await supabaseClient.from('classrooms')
+          .select('name,stage,children_count,adults_count,directed_time_minutes')
+          .eq('user_id', user.id).eq('active', true)
+          .order('updated_at', { ascending: false }).limit(1).maybeSingle();
+        if (error) {
+          setMessage(root.querySelector('#si-classroom-message'), 'Não foi possível carregar a turma salva.');
+          return;
+        }
+        if (!data) return;
+        root.querySelector('#si-classroom-name').value = data.name;
+        root.querySelector('#si-classroom-stage').value = data.stage;
+        root.querySelector('#si-children-count').value = data.children_count;
+        root.querySelector('#si-adults-count').value = data.adults_count;
+        root.querySelector('#si-directed-time').value = data.directed_time_minutes;
+        setMessage(root.querySelector('#si-classroom-message'), 'Turma carregada da sua conta.', true);
+      }
+      async function refreshAuthUI() {
+        const state = root.querySelector('#si-auth-state');
+        const loggedOut = root.querySelector('#si-auth-logged-out');
+        const loggedIn = root.querySelector('#si-auth-logged-in');
+        if (!supabaseClient) {
+          state.textContent = 'Indisponível';
+          setMessage(root.querySelector('#si-auth-message'), 'Não foi possível iniciar a conexão segura.');
+          return;
+        }
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        const user = session?.user;
+        loggedOut.hidden = Boolean(user);
+        loggedIn.hidden = !user;
+        state.textContent = user ? 'Conectada' : 'Não conectada';
+        root.querySelector('#si-auth-user-email').textContent = user?.email || '';
+        if (user) await loadClassroom();
+      }
+      supabaseClient?.auth.onAuthStateChange(() => window.setTimeout(refreshAuthUI, 0));
       function show(name) {
         panels.forEach(panel => { panel.hidden = panel.dataset.panel !== name; });
         steps.forEach(step => { step.setAttribute('aria-pressed', String(step.dataset.screen === name)); });
       }
       root.addEventListener('click', async event => {
+        const sendMagicLink = event.target.closest('[data-send-magic-link]');
+        if (sendMagicLink) {
+          const emailInput = root.querySelector('#si-auth-email');
+          const message = root.querySelector('#si-auth-message');
+          const email = emailInput.value.trim();
+          if (!emailInput.checkValidity() || !email) {
+            setMessage(message, 'Informe um e-mail válido.');
+            return;
+          }
+          sendMagicLink.disabled = true;
+          setMessage(message, 'Enviando link seguro…', true);
+          const { error } = await supabaseClient.auth.signInWithOtp({
+            email,
+            options: { emailRedirectTo: `${window.location.origin}${window.location.pathname}` }
+          });
+          sendMagicLink.disabled = false;
+          setMessage(message, error ? 'Não foi possível enviar o link. Tente novamente.' : 'Link enviado. Verifique seu e-mail para entrar.', !error);
+          return;
+        }
+        const signOut = event.target.closest('[data-sign-out]');
+        if (signOut) {
+          await supabaseClient?.auth.signOut();
+          setMessage(root.querySelector('#si-auth-message'), 'Sessão encerrada.', true);
+          return;
+        }
+        const saveClassroom = event.target.closest('[data-save-classroom]');
+        if (saveClassroom) {
+          const message = root.querySelector('#si-classroom-message');
+          const { data: { user } } = await supabaseClient.auth.getUser();
+          if (!user) {
+            setMessage(message, 'Entre na sua conta antes de salvar.');
+            setMessage(root.querySelector('#si-auth-message'), 'Entre para salvar os dados desta turma.');
+            show('auth');
+            return;
+          }
+          const stage = root.querySelector('#si-classroom-stage').value;
+          const [ageMin, ageMax] = stageAges[stage];
+          const payload = {
+            user_id: user.id,
+            name: root.querySelector('#si-classroom-name').value.trim(),
+            stage,
+            age_min_months: ageMin,
+            age_max_months: ageMax,
+            children_count: Number(root.querySelector('#si-children-count').value),
+            adults_count: Number(root.querySelector('#si-adults-count').value),
+            directed_time_minutes: Number(root.querySelector('#si-directed-time').value),
+            active: true
+          };
+          if (!payload.name || payload.children_count < 1 || payload.children_count > 99 || payload.adults_count < 1 || payload.adults_count > 20) {
+            setMessage(message, 'Revise o nome e as quantidades informadas.');
+            return;
+          }
+          saveClassroom.disabled = true;
+          const { data: existing } = await supabaseClient.from('classrooms').select('id')
+            .eq('user_id', user.id).eq('active', true)
+            .order('updated_at', { ascending: false }).limit(1).maybeSingle();
+          const query = existing?.id
+            ? supabaseClient.from('classrooms').update(payload).eq('id', existing.id)
+            : supabaseClient.from('classrooms').insert(payload);
+          const { error } = await query;
+          saveClassroom.disabled = false;
+          setMessage(message, error ? 'Não foi possível salvar a turma.' : 'Turma salva com segurança.', !error);
+          return;
+        }
         const screen = event.target.closest('[data-screen]');
         const next = event.target.closest('[data-next]');
         if (screen) show(screen.dataset.screen);
@@ -2398,6 +2247,7 @@ html>body{padding:0}</style>
           toggle.classList.toggle('on');
         }
       });
+      refreshAuthUI();
       root.querySelector('[data-bncc-search]').click();
     })();
   </script>
