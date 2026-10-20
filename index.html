@@ -1696,7 +1696,7 @@ html>body{padding:0}</style>
     </div>
 
     <div class="si-phone" aria-live="polite">
-      <div class="si-status"><span>9:41</span><span>Wireframe mobile · baixa fidelidade</span></div>
+      <div class="si-status"><span>9:41</span><span>Planejamento infantil</span></div>
 
       <section class="si-screen" data-panel="auth">
         <div class="si-topbar"><strong>Acesso da professora</strong><span id="si-auth-state" class="si-tag">Verificando…</span></div>
@@ -1722,17 +1722,17 @@ html>body{padding:0}</style>
 
       <section class="si-screen" data-panel="profile" hidden>
         <div class="si-progress"><span style="width:38%"></span></div>
-        <div class="si-topbar"><button class="si-back" type="button">← Voltar</button><strong>Primeira turma</strong><span></span></div>
+        <div class="si-topbar"><button class="si-back" type="button" data-next="auth">← Conta</button><strong>Sobre sua turma</strong><span></span></div>
         <div class="si-content">
           <h2>Como sua turma funciona?</h2>
-          <p class="si-muted">Esses dados ajudam a selecionar propostas possíveis para sua realidade.</p>
-          <label class="si-field"><span class="si-label">Nome da turma</span><input id="si-classroom-name" placeholder="Ex.: Maternal II · turma da manhã" maxlength="120" autocomplete="off"></label>
-          <label class="si-field"><span class="si-label">Faixa BNCC</span><select id="si-classroom-stage" aria-label="Faixa BNCC"><option value="" selected disabled>Selecione a faixa etária</option><option value="EI01">Bebês · 0 a 1 ano e 6 meses</option><option value="EI02">Crianças bem pequenas · 1 ano e 7 meses a 3 anos e 11 meses</option><option value="EI03">Crianças pequenas · 4 anos a 5 anos e 11 meses</option></select></label>
+          <p class="si-muted">Conte como é a turma. Usaremos essas informações para preparar atividades possíveis para você.</p>
+          <label class="si-field"><span class="si-label">Como você chama essa turma?</span><input id="si-classroom-name" placeholder="Ex.: Berçário da manhã" maxlength="120" autocomplete="off"></label>
+          <label class="si-field"><span class="si-label">Qual é a idade das crianças?</span><select id="si-classroom-stage" aria-label="Idade das crianças"><option value="" selected disabled>Escolha uma opção</option><option value="EI01">De 0 a 1 ano e 6 meses</option><option value="EI02">De 1 ano e 7 meses a 3 anos e 11 meses</option><option value="EI03">De 4 anos a 5 anos e 11 meses</option></select></label>
           <div class="si-grid2">
             <label class="si-field"><span class="si-label">Quantidade de crianças</span><input id="si-children-count" type="number" min="1" max="99" placeholder="Ex.: 18" inputmode="numeric" aria-label="Quantidade de crianças"></label>
             <label class="si-field"><span class="si-label">Adultos disponíveis</span><input id="si-adults-count" type="number" min="1" max="20" placeholder="Ex.: 2" inputmode="numeric" aria-label="Adultos disponíveis"></label>
           </div>
-          <label class="si-field"><span class="si-label">Tempo usual para uma proposta</span><select id="si-directed-time" aria-label="Tempo usual"><option value="" selected disabled>Selecione o tempo aproximado</option><option value="15">15 minutos</option><option value="25">25 minutos</option><option value="40">40 minutos</option></select></label>
+          <label class="si-field"><span class="si-label">Quanto tempo você tem para cada atividade?</span><select id="si-directed-time" aria-label="Tempo disponível"><option value="" selected disabled>Escolha o tempo aproximado</option><option value="15">15 minutos</option><option value="25">25 minutos</option><option value="40">40 minutos</option></select></label>
           <p id="si-classroom-message" class="si-muted" style="margin-top:12px" role="status"></p>
           <div class="si-note">Você poderá alterar estas informações quando a realidade da turma mudar.</div>
         </div>
@@ -1741,13 +1741,15 @@ html>body{padding:0}</style>
 
       <section class="si-screen" data-panel="request" hidden>
         <div class="si-progress"><span style="width:74%"></span></div>
-        <div class="si-topbar"><button class="si-back" type="button" data-next="profile">← Voltar</button><strong>Criar semana</strong><button class="si-link" type="button">Salvar</button></div>
+        <div class="si-topbar"><button class="si-back" type="button" data-next="profile">← Voltar</button><strong>Criar semana</strong><span></span></div>
         <div class="si-content">
           <span id="si-request-classroom" class="si-tag">Turma ainda não informada</span>
-          <h2 style="margin-top:12px">O que orienta esta semana?</h2>
-          <label class="si-field"><span class="si-label">Dias</span><span class="si-days"><button class="si-day" type="button">Seg</button><button class="si-day" type="button">Ter</button><button class="si-day" type="button">Qua</button><button class="si-day" type="button">Qui</button><button class="si-day" type="button">Sex</button></span></label>
-          <label class="si-field"><span class="si-label">Tema, interesse observado ou objetivo</span><textarea aria-label="Intenção da semana" placeholder="Ex.: As crianças demonstraram interesse por sombras e movimentos de luz."></textarea></label>
-          <label class="si-field"><span class="si-label">Mudança temporária</span><textarea aria-label="Mudança temporária" placeholder="Ex.: Nesta semana o pátio estará indisponível. Se não houver mudança, deixe em branco."></textarea></label>
+          <h2 style="margin-top:12px">O que você precisa para esta semana?</h2>
+          <label class="si-field"><span class="si-label">Em quais dias haverá atividade?</span><span class="si-days"><button class="si-day" type="button" data-day="Segunda">Seg</button><button class="si-day" type="button" data-day="Terça">Ter</button><button class="si-day" type="button" data-day="Quarta">Qua</button><button class="si-day" type="button" data-day="Quinta">Qui</button><button class="si-day" type="button" data-day="Sexta">Sex</button></span></label>
+          <label class="si-field"><span class="si-label">O que você quer trabalhar com as crianças?</span><textarea id="si-week-intention" aria-label="O que trabalhar" placeholder="Ex.: Uma brincadeira com sons, movimentos ou objetos da sala."></textarea></label>
+          <label class="si-field"><span class="si-label">Onde as atividades podem acontecer?</span><select id="si-week-space" aria-label="Espaço disponível"><option value="" selected disabled>Escolha o espaço principal</option><option>Sala</option><option>Pátio</option><option>Área externa</option><option>Sala e pátio</option><option>Outro espaço da escola</option></select></label>
+          <label class="si-field"><span class="si-label">Há algo diferente nesta semana? <span class="si-muted">(opcional)</span></span><textarea id="si-week-change" aria-label="Mudança nesta semana" placeholder="Ex.: O pátio estará fechado. Se nada mudou, deixe em branco."></textarea></label>
+          <p id="si-request-message" class="si-muted" style="margin-top:12px" role="status"></p>
           <div class="si-note">Não inclua nomes, diagnósticos ou informações identificáveis de crianças.</div>
         </div>
         <div class="si-actions"><button class="si-primary" type="button" data-next="review">Revisar pedido</button></div>
@@ -1757,8 +1759,8 @@ html>body{padding:0}</style>
         <div class="si-topbar"><button class="si-back" type="button" data-next="request">← Semanas</button><strong>Semana pronta</strong><button class="si-link" type="button">•••</button></div>
         <div class="si-content">
           <h2>Luz que se move</h2>
-          <p class="si-muted">Maternal II · 19 a 22 de outubro</p>
-          <div class="si-box"><strong>Intenção central</strong><p class="si-muted" style="margin-top:4px">Perceber como luz, corpo e objetos produzem sombras que mudam.</p></div>
+          <p id="si-week-classroom" class="si-muted">Turma informada pela professora</p>
+          <div class="si-box"><strong>Intenção central</strong><p id="si-week-intention-summary" class="si-muted" style="margin-top:4px">Intenção informada pela professora.</p></div>
           <h3>Conexão da semana</h3>
           <p class="si-muted">Descobrir → experimentar com o corpo → transformar com objetos → retomar e comparar.</p>
           <h3>4 dias conectados</h3>
@@ -1829,10 +1831,12 @@ html>body{padding:0}</style>
         <div class="si-content">
           <h2>Está tudo certo?</h2>
           <p class="si-muted">Confira as condições usadas para montar a semana.</p>
-          <div class="si-card"><strong>Turma</strong><small>Maternal II · 18 crianças · 2 adultos · 25 minutos</small></div>
-          <div class="si-card"><strong>Dias</strong><small>Segunda, terça, quarta e quinta</small></div>
-          <div class="si-card"><strong>Intenção</strong><small>Explorar sombras, movimentos e mudanças de luz.</small></div>
-          <div class="si-card"><strong>Mudança temporária</strong><small>O pátio pode ficar indisponível.</small></div>
+          <div class="si-card"><strong>Turma</strong><small id="si-review-classroom">Aguardando preenchimento</small></div>
+          <div class="si-card"><strong>Faixa etária</strong><small id="si-review-stage">Aguardando preenchimento</small></div>
+          <div class="si-card"><strong>Dias</strong><small id="si-review-days">Aguardando preenchimento</small></div>
+          <div class="si-card"><strong>Intenção</strong><small id="si-review-intention">Aguardando preenchimento</small></div>
+          <div class="si-card"><strong>Espaço</strong><small id="si-review-space">Aguardando preenchimento</small></div>
+          <div class="si-card"><strong>Mudança temporária</strong><small id="si-review-change">Nenhuma mudança informada</small></div>
           <div class="si-box"><strong>O que será criado</strong><p class="si-muted" style="margin-top:4px">Uma proposta principal por dia, materiais consolidados, plano B, sinais observáveis e vínculos BNCC verificados.</p></div>
           <button class="si-secondary" type="button" data-next="request">Editar pedido</button>
         </div>
@@ -1842,15 +1846,13 @@ html>body{padding:0}</style>
       <section class="si-screen" data-panel="generating" hidden>
         <div class="si-topbar"><button class="si-back" type="button" data-next="review">← Voltar</button><strong>Gerando semana</strong><span></span></div>
         <div class="si-content">
-          <h2>Estamos organizando sua semana</h2>
-          <p class="si-muted">Você pode sair desta tela. O pedido ficará salvo.</p>
-          <div class="si-progress" style="margin-top:24px"><span style="width:72%"></span></div>
-          <div class="si-card"><strong>Condições verificadas</strong><small>Etapa, tempo, espaço, materiais e quantidade de adultos.</small></div>
-          <div class="si-card"><strong>Propostas selecionadas</strong><small>Candidatas compatíveis e conexões entre os dias.</small></div>
-          <div class="si-card"><strong>Em validação</strong><small>Planos B, segurança, estrutura e relações BNCC.</small></div>
-          <div class="si-note">Nenhum conteúdo será exibido como pronto antes de passar pelas validações.</div>
+          <h2>A geração ainda não está conectada</h2>
+          <p class="si-muted">Seu pedido foi conferido, mas esta versão ainda não envia as informações ao motor de criação.</p>
+          <div class="si-card"><strong>O que já funciona</strong><small>Login, acesso, cadastro da turma, preenchimento do pedido, revisão dos dados e consulta BNCC.</small></div>
+          <div class="si-card"><strong>Próxima integração</strong><small>Gerar propostas compatíveis com faixa etária, tempo, espaço e objetivo informado.</small></div>
+          <div class="si-note">As telas preenchidas de semana e proposta são referências de projeto e não serão apresentadas como resultado real para a professora.</div>
         </div>
-        <div class="si-actions"><button class="si-primary" type="button" data-next="week">Ver semana concluída</button><button class="si-secondary" type="button">Sair e continuar depois</button></div>
+        <div class="si-actions"><button class="si-primary" type="button" data-next="request">Voltar e editar o pedido</button></div>
       </section>
 
       <section class="si-screen" data-panel="materials" hidden>
@@ -2110,6 +2112,34 @@ html>body{padding:0}</style>
       function updateClassroomSummary(name, children, adults) {
         root.querySelector('#si-request-classroom').textContent = `${name} · ${children} crianças · ${adults} adultos`;
       }
+      function prepareReview() {
+        const selectedDays = [...root.querySelectorAll('.si-days .si-day.on')].map(button => button.dataset.day);
+        const intention = root.querySelector('#si-week-intention').value.trim();
+        const space = root.querySelector('#si-week-space').value;
+        const temporaryChange = root.querySelector('#si-week-change').value.trim();
+        const classroomName = root.querySelector('#si-classroom-name').value.trim();
+        const children = Number(root.querySelector('#si-children-count').value);
+        const adults = Number(root.querySelector('#si-adults-count').value);
+        const minutes = Number(root.querySelector('#si-directed-time').value);
+        const stageSelect = root.querySelector('#si-classroom-stage');
+        const stageLabel = stageSelect.selectedOptions[0]?.textContent || '';
+        const message = root.querySelector('#si-request-message');
+        if (!classroomName || !stageSelect.value || !children || !adults || !minutes || selectedDays.length === 0 || !intention || !space) {
+          setMessage(message, 'Preencha a turma, selecione ao menos um dia, informe o objetivo e escolha o espaço.');
+          return false;
+        }
+        setMessage(message, '', true);
+        const classroomSummary = `${classroomName} · ${children} crianças · ${adults} adultos · ${minutes} minutos`;
+        root.querySelector('#si-review-classroom').textContent = classroomSummary;
+        root.querySelector('#si-review-stage').textContent = stageLabel;
+        root.querySelector('#si-review-days').textContent = selectedDays.join(', ');
+        root.querySelector('#si-review-intention').textContent = intention;
+        root.querySelector('#si-review-space').textContent = space;
+        root.querySelector('#si-review-change').textContent = temporaryChange || 'Nenhuma mudança informada';
+        root.querySelector('#si-week-classroom').textContent = classroomSummary;
+        root.querySelector('#si-week-intention-summary').textContent = intention;
+        return true;
+      }
       async function loadClassroom() {
         if (!supabaseClient) return;
         const { data: { user } } = await supabaseClient.auth.getUser();
@@ -2275,7 +2305,10 @@ html>body{padding:0}</style>
         const screen = event.target.closest('[data-screen]');
         const next = event.target.closest('[data-next]');
         if (screen) show(screen.dataset.screen);
-        if (next) show(next.dataset.next);
+        if (next) {
+          if (next.dataset.next === 'review' && !prepareReview()) return;
+          show(next.dataset.next);
+        }
         const search = event.target.closest('[data-bncc-search]');
         if (search) {
           const years = Number(root.querySelector('#si-bncc-years').value);
