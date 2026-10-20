@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data: https://qrmvcmlaeuaslrocqelr.supabase.co; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<title>Semana Inteligente Wireframes</title>
+<title>Planejamento Infantil</title>
 <style>:root {
   color-scheme: light dark;
   background-color: var(
@@ -1491,19 +1491,27 @@ html>body{padding:0}</style>
 <div id="si-wireframes" class="viz-dotted-background">
   <style>
     #si-wireframes {
-      --si-page: light-dark(#eef0f2, #17191c);
-      --si-phone: light-dark(#ffffff, #22252a);
-      --si-text: light-dark(#202328, #f3f4f6);
-      --si-muted: light-dark(#62676f, #aeb4bd);
-      --si-line: light-dark(#c9cdd2, #454a52);
-      --si-soft: light-dark(#f2f3f5, #2c3036);
-      --si-ink: light-dark(#30343a, #e5e7eb);
-      --si-action: light-dark(#202328, #f3f4f6);
-      --si-action-text: light-dark(#ffffff, #17191c);
+      --si-page: #f7efe5;
+      --si-phone: #fffdf9;
+      --si-text: #26332e;
+      --si-muted: #66736d;
+      --si-line: #d8ded8;
+      --si-soft: #e7f1ec;
+      --si-ink: #356859;
+      --si-action: #356859;
+      --si-action-hover: #285347;
+      --si-action-text: #ffffff;
+      --si-accent: #d97757;
+      --si-accent-soft: #fbe9e1;
+      --si-sun: #f4c95d;
       color: var(--si-text);
-      padding: 18px 10px 54px;
-      min-height: 780px;
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      padding: 28px 12px 64px;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(244, 201, 93, .24) 0 7%, transparent 7.2%),
+        radial-gradient(circle at 88% 18%, rgba(217, 119, 87, .13) 0 9%, transparent 9.2%),
+        linear-gradient(180deg, #fff9f2 0%, var(--si-page) 100%);
+      font-family: "Avenir Next", Avenir, Nunito, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
     #si-wireframes * { box-sizing: border-box; }
     #si-wireframes [hidden] { display: none !important; }
@@ -1531,102 +1539,112 @@ html>body{padding:0}</style>
       border-color: var(--si-action);
     }
     #si-wireframes .si-phone {
-      width: min(390px, 100%);
+      width: min(520px, 100%);
       margin: 0 auto;
       background: var(--si-phone);
-      border: 2px solid var(--si-ink);
-      border-radius: 28px;
+      border: 1px solid rgba(53, 104, 89, .18);
+      border-radius: 26px;
       overflow: hidden;
-      box-shadow: 0 12px 30px color-mix(in srgb, var(--si-ink) 14%, transparent);
+      box-shadow: 0 24px 70px rgba(61, 75, 68, .16), 0 3px 12px rgba(61, 75, 68, .08);
     }
     #si-wireframes .si-status {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 9px 18px 7px;
-      font-size: 11px;
-      color: var(--si-muted);
-      border-bottom: 1px solid var(--si-line);
+      padding: 12px 20px;
+      font-size: 12px;
+      font-weight: 650;
+      letter-spacing: .01em;
+      color: #ffffff;
+      background: var(--si-ink);
+      border-bottom: 0;
     }
-    #si-wireframes .si-screen { min-height: 650px; display: flex; flex-direction: column; }
+    #si-wireframes .si-status span:first-child::before { content: "✦ "; color: var(--si-sun); }
+    #si-wireframes .si-screen { min-height: 690px; display: flex; flex-direction: column; background: var(--si-phone); }
     #si-wireframes .si-topbar {
-      min-height: 48px;
+      min-height: 58px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      padding: 10px 16px;
+      padding: 12px 20px;
       border-bottom: 1px solid var(--si-line);
+      background: rgba(231, 241, 236, .58);
     }
-    #si-wireframes .si-topbar strong { font-size: 14px; font-weight: 500; }
+    #si-wireframes .si-topbar strong { font-size: 15px; font-weight: 750; color: var(--si-ink); }
     #si-wireframes .si-back, #si-wireframes .si-link {
       border: 0;
       background: transparent;
       color: var(--si-text);
-      padding: 6px 0;
+      min-height: 40px;
+      padding: 8px 4px;
       font: inherit;
       font-size: 13px;
+      font-weight: 650;
     }
-    #si-wireframes .si-content { padding: 18px 16px 14px; flex: 1; }
-    #si-wireframes h2 { margin: 0 0 7px; font-size: 22px; line-height: 1.2; font-weight: 500; }
-    #si-wireframes h3 { margin: 18px 0 8px; font-size: 14px; font-weight: 500; }
+    #si-wireframes .si-content { padding: 25px 22px 20px; flex: 1; }
+    #si-wireframes h2 { margin: 0 0 9px; font-family: Georgia, "Times New Roman", serif; font-size: 27px; line-height: 1.16; font-weight: 700; color: var(--si-ink); letter-spacing: -.02em; }
+    #si-wireframes h3 { margin: 22px 0 9px; font-size: 15px; font-weight: 750; color: var(--si-ink); }
     #si-wireframes p { margin: 0; line-height: 1.45; }
-    #si-wireframes .si-muted { color: var(--si-muted); font-size: 13px; }
-    #si-wireframes .si-progress { height: 6px; background: var(--si-soft); }
-    #si-wireframes .si-progress > span { display: block; height: 100%; background: var(--si-ink); }
-    #si-wireframes .si-field { margin-top: 15px; }
-    #si-wireframes .si-label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 500; }
+    #si-wireframes .si-muted { color: var(--si-muted); font-size: 14px; }
+    #si-wireframes .si-progress { height: 7px; background: #edf2ee; }
+    #si-wireframes .si-progress > span { display: block; height: 100%; background: linear-gradient(90deg, var(--si-ink), #6d9f71); border-radius: 0 999px 999px 0; }
+    #si-wireframes .si-field { display: block; margin-top: 18px; }
+    #si-wireframes .si-label { display: block; margin-bottom: 7px; font-size: 13px; font-weight: 750; color: #35473f; }
     #si-wireframes input, #si-wireframes textarea, #si-wireframes select {
       width: 100%;
-      min-height: 44px;
-      padding: 10px 11px;
+      min-height: 50px;
+      padding: 12px 13px;
       border: 1px solid var(--si-line);
-      border-radius: 8px;
-      background: var(--si-phone);
+      border-radius: 12px;
+      background: #ffffff;
       color: var(--si-text);
       font: inherit;
       font-size: 16px;
     }
-    #si-wireframes textarea { min-height: 82px; resize: vertical; }
+    #si-wireframes input:focus, #si-wireframes textarea:focus, #si-wireframes select:focus { outline: 3px solid rgba(53, 104, 89, .15); border-color: var(--si-ink); }
+    #si-wireframes textarea { min-height: 96px; resize: vertical; }
     #si-wireframes .si-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     #si-wireframes .si-days { display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px; margin-top: 7px; }
     #si-wireframes .si-day {
-      min-height: 44px;
+      min-height: 48px;
       border: 1px solid var(--si-line);
-      border-radius: 8px;
-      background: var(--si-phone);
+      border-radius: 12px;
+      background: #ffffff;
       color: var(--si-text);
       font: inherit;
       font-size: 13px;
     }
-    #si-wireframes .si-day.on { background: var(--si-ink); color: var(--si-action-text); }
+    #si-wireframes .si-day.on { background: var(--si-ink); color: var(--si-action-text); border-color: var(--si-ink); box-shadow: 0 5px 12px rgba(53, 104, 89, .2); }
     #si-wireframes .si-note, #si-wireframes .si-box {
       margin-top: 14px;
-      padding: 11px;
-      border: 1px solid var(--si-line);
-      border-radius: 9px;
+      padding: 14px 15px;
+      border: 1px solid #cfddd5;
+      border-radius: 13px;
       background: var(--si-soft);
       font-size: 13px;
       line-height: 1.4;
     }
-    #si-wireframes .si-box { background: transparent; }
+    #si-wireframes .si-box { background: #ffffff; border-left: 4px solid var(--si-accent); }
     #si-wireframes .si-card {
       margin-top: 10px;
-      padding: 12px;
+      padding: 15px;
       border: 1px solid var(--si-line);
-      border-radius: 10px;
-      background: var(--si-phone);
+      border-radius: 14px;
+      background: #ffffff;
+      box-shadow: 0 5px 18px rgba(53, 104, 89, .06);
     }
     #si-wireframes .si-card-row { display: flex; justify-content: space-between; gap: 10px; align-items: start; }
-    #si-wireframes .si-card strong { display: block; font-size: 14px; font-weight: 500; }
+    #si-wireframes .si-card strong { display: block; font-size: 14px; font-weight: 750; }
     #si-wireframes .si-card small { display: block; margin-top: 4px; color: var(--si-muted); font-size: 12px; line-height: 1.35; }
     #si-wireframes .si-tag {
       display: inline-block;
-      padding: 3px 7px;
+      padding: 5px 9px;
       border-radius: 999px;
       background: var(--si-soft);
-      color: var(--si-muted);
+      color: var(--si-ink);
       font-size: 11px;
+      font-weight: 700;
       white-space: nowrap;
     }
     #si-wireframes .si-list { margin: 8px 0 0; padding-left: 19px; font-size: 13px; line-height: 1.5; }
@@ -1640,17 +1658,22 @@ html>body{padding:0}</style>
       font-size: 13px;
     }
     #si-wireframes .si-choice input { width: 18px; min-height: 18px; margin: 0; }
-    #si-wireframes .si-actions { padding: 12px 16px 15px; border-top: 1px solid var(--si-line); background: var(--si-phone); }
+    #si-wireframes .si-actions { padding: 14px 22px 19px; border-top: 1px solid var(--si-line); background: rgba(255, 253, 249, .97); }
     #si-wireframes .si-primary, #si-wireframes .si-secondary {
       width: 100%;
-      min-height: 45px;
-      border-radius: 9px;
+      min-height: 50px;
+      border-radius: 13px;
       font: inherit;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 750;
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
     }
-    #si-wireframes .si-primary { border: 1px solid var(--si-action); background: var(--si-action); color: var(--si-action-text); }
-    #si-wireframes .si-secondary { margin-top: 8px; border: 1px solid var(--si-line); background: var(--si-phone); color: var(--si-text); }
+    #si-wireframes .si-primary { border: 1px solid var(--si-action); background: var(--si-action); color: var(--si-action-text); box-shadow: 0 8px 18px rgba(53, 104, 89, .2); }
+    #si-wireframes .si-primary:hover { background: var(--si-action-hover); transform: translateY(-1px); }
+    #si-wireframes .si-primary:active, #si-wireframes .si-secondary:active { transform: translateY(1px); }
+    #si-wireframes .si-secondary { margin-top: 9px; border: 1px solid #c6d5cd; background: #ffffff; color: var(--si-ink); }
+    #si-wireframes .si-secondary:hover { background: var(--si-soft); }
     #si-wireframes .si-inline-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin-top: 15px; }
     #si-wireframes .si-inline-actions button { min-height: 42px; border: 1px solid var(--si-line); border-radius: 8px; background: var(--si-phone); color: var(--si-text); font: inherit; font-size: 12px; }
     #si-wireframes .si-nav { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--si-line); }
@@ -1664,7 +1687,10 @@ html>body{padding:0}</style>
     #si-wireframes .si-scale button { min-height: 44px; border: 1px solid var(--si-line); border-radius: 8px; background: var(--si-phone); color: var(--si-text); font: inherit; font-size: 12px; }
     #si-wireframes .si-scale button.on { background: var(--si-ink); color: var(--si-action-text); }
     @media (max-width: 420px) {
-      #si-wireframes { padding-inline: 4px; }
+      #si-wireframes { padding: 0; background: var(--si-phone); }
+      #si-wireframes .si-phone { border: 0; border-radius: 0; box-shadow: none; }
+      #si-wireframes .si-content { padding-inline: 18px; }
+      #si-wireframes .si-actions { padding-inline: 18px; }
       #si-wireframes .si-grid2 { grid-template-columns: 1fr; }
     }
   </style>
@@ -1696,7 +1722,7 @@ html>body{padding:0}</style>
     </div>
 
     <div class="si-phone" aria-live="polite">
-      <div class="si-status"><span>9:41</span><span>Planejamento infantil</span></div>
+      <div class="si-status"><span>Caderno da professora</span><span>Planejamento infantil</span></div>
 
       <section class="si-screen" data-panel="auth">
         <div class="si-topbar"><strong>Acesso da professora</strong><span id="si-auth-state" class="si-tag">Verificando…</span></div>
@@ -1722,7 +1748,7 @@ html>body{padding:0}</style>
 
       <section class="si-screen" data-panel="profile" hidden>
         <div class="si-progress"><span style="width:38%"></span></div>
-        <div class="si-topbar"><button class="si-back" type="button" data-next="auth">← Conta</button><strong>Sobre sua turma</strong><span></span></div>
+        <div class="si-topbar"><span></span><strong>Sobre sua turma</strong><span class="si-tag">Neste aparelho</span></div>
         <div class="si-content">
           <h2>Como sua turma funciona?</h2>
           <p class="si-muted">Conte como é a turma. Usaremos essas informações para preparar atividades possíveis para você.</p>
@@ -2068,7 +2094,8 @@ html>body{padding:0}</style>
         EI03: 'Crianças pequenas · 4 anos a 5 anos e 11 meses'
       };
       const bnccCache = new Map();
-      let accessGranted = false;
+      const localOnlyMode = true;
+      let accessGranted = true;
       async function loadBncc(stage) {
         if (bnccCache.has(stage)) return bnccCache.get(stage);
         const query = new URLSearchParams({
@@ -2141,6 +2168,22 @@ html>body{padding:0}</style>
         return true;
       }
       async function loadClassroom() {
+        if (localOnlyMode) {
+          try {
+            const data = JSON.parse(localStorage.getItem('planejamento-infantil-classroom') || 'null');
+            if (!data) return;
+            root.querySelector('#si-classroom-name').value = data.name || '';
+            root.querySelector('#si-classroom-stage').value = data.stage || '';
+            root.querySelector('#si-children-count').value = data.children_count || '';
+            root.querySelector('#si-adults-count').value = data.adults_count || '';
+            root.querySelector('#si-directed-time').value = data.directed_time_minutes || '';
+            updateClassroomSummary(data.name, data.children_count, data.adults_count);
+            setMessage(root.querySelector('#si-classroom-message'), 'Turma carregada deste aparelho.', true);
+          } catch (storageError) {
+            console.error('Não foi possível carregar a turma local', storageError);
+          }
+          return;
+        }
         if (!supabaseClient) return;
         const { data: { user } } = await supabaseClient.auth.getUser();
         if (!user) return;
@@ -2221,7 +2264,7 @@ html>body{padding:0}</style>
         title.textContent = access.access_status === 'refunded' ? 'Compra reembolsada' : access.access_status === 'chargeback' ? 'Pagamento contestado' : 'Assinatura sem acesso';
         detail.textContent = 'Entre em contato com o suporte ou regularize a assinatura pela Hotmart.';
       }
-      supabaseClient?.auth.onAuthStateChange(() => window.setTimeout(refreshAuthUI, 0));
+      if (!localOnlyMode) supabaseClient?.auth.onAuthStateChange(() => window.setTimeout(refreshAuthUI, 0));
       function show(name, force = false) {
         if (!force && name !== 'auth' && !accessGranted) name = 'auth';
         panels.forEach(panel => { panel.hidden = panel.dataset.panel !== name; });
@@ -2257,6 +2300,33 @@ html>body{padding:0}</style>
         const saveClassroom = event.target.closest('[data-save-classroom]');
         if (saveClassroom) {
           const message = root.querySelector('#si-classroom-message');
+          if (localOnlyMode) {
+            const stage = root.querySelector('#si-classroom-stage').value;
+            const childrenCount = Number(root.querySelector('#si-children-count').value);
+            const adultsCount = Number(root.querySelector('#si-adults-count').value);
+            const directedTime = Number(root.querySelector('#si-directed-time').value);
+            const classroomName = root.querySelector('#si-classroom-name').value.trim();
+            if (!classroomName || !stageAges[stage] || childrenCount < 1 || childrenCount > 99 || adultsCount < 1 || adultsCount > 20 || !directedTime) {
+              setMessage(message, 'Preencha todos os campos da turma antes de continuar.');
+              return;
+            }
+            const localClassroom = {
+              name: classroomName,
+              stage,
+              children_count: childrenCount,
+              adults_count: adultsCount,
+              directed_time_minutes: directedTime
+            };
+            try {
+              localStorage.setItem('planejamento-infantil-classroom', JSON.stringify(localClassroom));
+            } catch (storageError) {
+              console.error('Não foi possível salvar a turma local', storageError);
+            }
+            updateClassroomSummary(classroomName, childrenCount, adultsCount);
+            setMessage(message, 'Turma salva neste aparelho.', true);
+            show('request');
+            return;
+          }
           const { data: { user } } = await supabaseClient.auth.getUser();
           if (!user) {
             setMessage(message, 'Entre na sua conta antes de salvar.');
@@ -2342,8 +2412,9 @@ html>body{padding:0}</style>
           toggle.classList.toggle('on');
         }
       });
-      show('auth', true);
-      refreshAuthUI();
+      show(localOnlyMode ? 'profile' : 'auth', true);
+      if (localOnlyMode) loadClassroom();
+      else refreshAuthUI();
     })();
   </script>
 </div>
