@@ -1,0 +1,54 @@
+{
+  "editorial_version": "ts-active-1.0",
+  "bncc_catalog_version": "bncc-ei-2018.1",
+  "experience_field": "TS",
+  "experience_field_name": "Traços, sons, cores e formas",
+  "status": "approved",
+  "items": [
+    {
+      "code": "EI01TS01",
+      "explanation": "Descoberta de sons produzidos pelo próprio corpo e por objetos presentes no ambiente.",
+      "status": "approved"
+    },
+    {
+      "code": "EI01TS02",
+      "explanation": "Produção de marcas gráficas em suportes variados com tintas e instrumentos adequados.",
+      "status": "approved"
+    },
+    {
+      "code": "EI01TS03",
+      "explanation": "Exploração de fontes sonoras e materiais durante canções, melodias e brincadeiras cantadas.",
+      "status": "approved"
+    },
+    {
+      "code": "EI02TS01",
+      "explanation": "Criação de sons com objetos, materiais e instrumentos para acompanhar diferentes ritmos musicais.",
+      "status": "approved"
+    },
+    {
+      "code": "EI02TS02",
+      "explanation": "Exploração de cores, texturas, superfícies, formas e volumes na criação de objetos tridimensionais.",
+      "status": "approved"
+    },
+    {
+      "code": "EI02TS03",
+      "explanation": "Uso de diferentes fontes sonoras do ambiente para participar de músicas e brincadeiras cantadas.",
+      "status": "approved"
+    },
+    {
+      "code": "EI03TS01",
+      "explanation": "Uso intencional de sons de objetos e instrumentos em encenações, festas e criações musicais.",
+      "status": "approved"
+    },
+    {
+      "code": "EI03TS02",
+      "explanation": "Expressão autoral em produções planas e tridimensionais usando diferentes linguagens e materiais artísticos.",
+      "status": "approved"
+    },
+    {
+      "code": "EI03TS03",
+      "explanation": "Percepção e uso de intensidade, duração, altura e timbre na escuta e produção sonora.",
+      "status": "approved"
+    }
+  ]
+}

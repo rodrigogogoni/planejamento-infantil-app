@@ -1,0 +1,31 @@
+{
+  "editorial_version": "et-active-1.0",
+  "bncc_catalog_version": "bncc-ei-2018.1",
+  "experience_field": "ET",
+  "experience_field_name": "Espaços, tempos, quantidades, relações e transformações",
+  "status": "approved",
+  "items": [
+    { "code": "EI01ET01", "explanation": "Descoberta de propriedades como odor, cor, sabor e temperatura na exploração segura de materiais.", "status": "approved" },
+    { "code": "EI01ET02", "explanation": "Exploração de relações de causa e efeito ao misturar, mover, remover, tingir ou transbordar materiais.", "status": "approved" },
+    { "code": "EI01ET03", "explanation": "Investigação do ambiente por ações, observações, manipulações, experimentações e descobertas.", "status": "approved" },
+    { "code": "EI01ET04", "explanation": "Exploração do espaço pelos deslocamentos do próprio corpo e pela movimentação de objetos.", "status": "approved" },
+    { "code": "EI01ET05", "explanation": "Comparação inicial de semelhanças e diferenças percebidas ao manipular materiais diversos.", "status": "approved" },
+    { "code": "EI01ET06", "explanation": "Vivência corporal de ritmos, velocidades e fluxos variados em interações e brincadeiras.", "status": "approved" },
+    { "code": "EI02ET01", "explanation": "Exploração e descrição de semelhanças e diferenças de textura, massa, tamanho e outras propriedades.", "status": "approved" },
+    { "code": "EI02ET02", "explanation": "Observação e descrição de acontecimentos cotidianos e fenômenos naturais, como luz, vento e chuva.", "status": "approved" },
+    { "code": "EI02ET03", "explanation": "Participação compartilhada em cuidados de plantas e animais nos espaços de convivência.", "status": "approved" },
+    { "code": "EI02ET04", "explanation": "Reconhecimento de relações espaciais e temporais durante ações, percursos, sequências e brincadeiras.", "status": "approved" },
+    { "code": "EI02ET05", "explanation": "Organização de objetos em grupos usando um atributo escolhido, como tamanho, peso, cor ou forma.", "status": "approved" },
+    { "code": "EI02ET06", "explanation": "Uso de noções temporais e de velocidade para descrever acontecimentos, movimentos e sequências cotidianas.", "status": "approved" },
+    { "code": "EI02ET07", "explanation": "Contagem oral de objetos, pessoas e outros elementos presentes em diferentes situações significativas.", "status": "approved" },
+    { "code": "EI02ET08", "explanation": "Registro numérico de quantidades observadas em grupos de pessoas ou conjuntos de objetos.", "status": "approved" },
+    { "code": "EI03ET01", "explanation": "Comparação de objetos considerando propriedades observáveis e critérios definidos durante a exploração.", "status": "approved" },
+    { "code": "EI03ET02", "explanation": "Observação e descrição de transformações produzidas em materiais por fenômenos ou ações experimentais.", "status": "approved" },
+    { "code": "EI03ET03", "explanation": "Busca e seleção de informações para investigar perguntas sobre natureza, fenômenos e conservação.", "status": "approved" },
+    { "code": "EI03ET04", "explanation": "Registro de observações, manipulações e medidas por desenhos, números, escrita espontânea e outros suportes.", "status": "approved" },
+    { "code": "EI03ET05", "explanation": "Classificação de objetos e figuras a partir de semelhanças, diferenças e critérios observados.", "status": "approved" },
+    { "code": "EI03ET06", "explanation": "Relato de fatos importantes sobre nascimento, desenvolvimento e histórias de familiares e da comunidade.", "status": "approved" },
+    { "code": "EI03ET07", "explanation": "Relação entre números e quantidades e reconhecimento de posições em diferentes sequências.", "status": "approved" },
+    { "code": "EI03ET08", "explanation": "Representação de medidas, como peso e altura, por comparações e gráficos básicos construídos coletivamente.", "status": "approved" }
+  ]
+}

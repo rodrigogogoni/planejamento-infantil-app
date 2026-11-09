@@ -1,0 +1,109 @@
+{
+  "editorial_version": "eo-active-1.0",
+  "bncc_catalog_version": "bncc-ei-2018.1",
+  "experience_field": "EO",
+  "experience_field_name": "O eu, o outro e o nós",
+  "status": "approved",
+  "items": [
+    {
+      "code": "EI01EO01",
+      "explanation": "Percepção de que gestos e ações pessoais provocam respostas nas pessoas ao redor.",
+      "status": "approved"
+    },
+    {
+      "code": "EI01EO02",
+      "explanation": "Exploração das possibilidades corporais e reconhecimento de limites durante brincadeiras e encontros com outras pessoas.",
+      "status": "approved"
+    },
+    {
+      "code": "EI01EO03",
+      "explanation": "Interação com crianças e adultos enquanto explora ambientes, materiais, objetos e brinquedos compartilhados.",
+      "status": "approved"
+    },
+    {
+      "code": "EI01EO04",
+      "explanation": "Expressão de necessidades, desejos e emoções por diferentes recursos comunicativos, como gestos, sons e palavras.",
+      "status": "approved"
+    },
+    {
+      "code": "EI01EO05",
+      "explanation": "Reconhecimento do próprio corpo e comunicação de sensações presentes nos cuidados e momentos cotidianos.",
+      "status": "approved"
+    },
+    {
+      "code": "EI01EO06",
+      "explanation": "Participação progressiva no convívio com outras crianças e adultos em situações compartilhadas.",
+      "status": "approved"
+    },
+    {
+      "code": "EI02EO01",
+      "explanation": "Vivência de cuidado, ajuda e solidariedade nas relações cotidianas com crianças e adultos.",
+      "status": "approved"
+    },
+    {
+      "code": "EI02EO02",
+      "explanation": "Construção de confiança para experimentar possibilidades, enfrentar desafios e reconhecer capacidades pessoais.",
+      "status": "approved"
+    },
+    {
+      "code": "EI02EO03",
+      "explanation": "Compartilhamento de objetos e espaços durante brincadeiras, explorações e situações de convivência.",
+      "status": "approved"
+    },
+    {
+      "code": "EI02EO04",
+      "explanation": "Ampliação do diálogo para compreender outras pessoas e comunicar ideias, necessidades e intenções.",
+      "status": "approved"
+    },
+    {
+      "code": "EI02EO05",
+      "explanation": "Percepção e respeito às diferentes características físicas presentes nas pessoas com quem convive.",
+      "status": "approved"
+    },
+    {
+      "code": "EI02EO06",
+      "explanation": "Participação em brincadeiras e interações considerando combinados básicos de convivência do grupo.",
+      "status": "approved"
+    },
+    {
+      "code": "EI02EO07",
+      "explanation": "Experimentação de formas de resolver conflitos com mediação adulta e atenção às pessoas envolvidas.",
+      "status": "approved"
+    },
+    {
+      "code": "EI03EO01",
+      "explanation": "Reconhecimento de diferentes sentimentos, necessidades e perspectivas para ampliar relações de empatia.",
+      "status": "approved"
+    },
+    {
+      "code": "EI03EO02",
+      "explanation": "Ação autônoma e confiante, com reconhecimento das próprias conquistas, possibilidades e limitações.",
+      "status": "approved"
+    },
+    {
+      "code": "EI03EO03",
+      "explanation": "Ampliação das relações com participação, cooperação e contribuição em experiências realizadas coletivamente.",
+      "status": "approved"
+    },
+    {
+      "code": "EI03EO04",
+      "explanation": "Comunicação de ideias e sentimentos em interações com diferentes pessoas e grupos.",
+      "status": "approved"
+    },
+    {
+      "code": "EI03EO05",
+      "explanation": "Valorização do próprio corpo e respeito às características corporais das outras pessoas.",
+      "status": "approved"
+    },
+    {
+      "code": "EI03EO06",
+      "explanation": "Contato respeitoso e interessado com diferentes culturas, costumes e modos de viver.",
+      "status": "approved"
+    },
+    {
+      "code": "EI03EO07",
+      "explanation": "Uso de diálogo, escuta e respeito mútuo para lidar com conflitos nas relações.",
+      "status": "approved"
+    }
+  ]
+}

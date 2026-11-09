@@ -1,0 +1,84 @@
+{
+  "editorial_version": "cg-active-1.0",
+  "bncc_catalog_version": "bncc-ei-2018.1",
+  "experience_field": "CG",
+  "experience_field_name": "Corpo, gestos e movimentos",
+  "status": "approved",
+  "items": [
+    {
+      "code": "EI01CG01",
+      "explanation": "Expressão de emoções, necessidades e desejos por movimentos e diferentes ações corporais.",
+      "status": "approved"
+    },
+    {
+      "code": "EI01CG02",
+      "explanation": "Descoberta de possibilidades do corpo em brincadeiras realizadas em ambientes acolhedores e desafiadores.",
+      "status": "approved"
+    },
+    {
+      "code": "EI01CG03",
+      "explanation": "Observação e imitação de gestos e movimentos realizados por pessoas e animais.",
+      "status": "approved"
+    },
+    {
+      "code": "EI01CG04",
+      "explanation": "Participação nos cuidados corporais cotidianos em situações que promovem conforto e bem-estar.",
+      "status": "approved"
+    },
+    {
+      "code": "EI01CG05",
+      "explanation": "Experimentação de pegar, encaixar e lançar para ampliar o manuseio de materiais e objetos seguros.",
+      "status": "approved"
+    },
+    {
+      "code": "EI02CG01",
+      "explanation": "Vivência de gestos e movimentos culturais presentes nos cuidados, jogos e brincadeiras cotidianas.",
+      "status": "approved"
+    },
+    {
+      "code": "EI02CG02",
+      "explanation": "Orientação do corpo no espaço usando relações como dentro, fora, acima, abaixo, frente e atrás.",
+      "status": "approved"
+    },
+    {
+      "code": "EI02CG03",
+      "explanation": "Exploração de deslocamentos variados, combinando movimentos corporais e orientações durante brincadeiras.",
+      "status": "approved"
+    },
+    {
+      "code": "EI02CG04",
+      "explanation": "Participação cada vez mais autônoma nas ações cotidianas de cuidado do próprio corpo.",
+      "status": "approved"
+    },
+    {
+      "code": "EI02CG05",
+      "explanation": "Ampliação do controle manual em experiências de desenho, pintura, rasgo, manuseio e folheio.",
+      "status": "approved"
+    },
+    {
+      "code": "EI03CG01",
+      "explanation": "Criação de expressões corporais para comunicar sentimentos, sensações e emoções em diferentes situações.",
+      "status": "approved"
+    },
+    {
+      "code": "EI03CG02",
+      "explanation": "Adequação dos movimentos corporais às necessidades de jogos, narrativas, brincadeiras e experiências artísticas.",
+      "status": "approved"
+    },
+    {
+      "code": "EI03CG03",
+      "explanation": "Invenção de movimentos, gestos, olhares e mímicas em jogos e produções artísticas.",
+      "status": "approved"
+    },
+    {
+      "code": "EI03CG04",
+      "explanation": "Prática de hábitos cotidianos de higiene, alimentação, conforto e cuidado com a aparência.",
+      "status": "approved"
+    },
+    {
+      "code": "EI03CG05",
+      "explanation": "Coordenação de ações manuais para realizar interesses e necessidades em situações variadas.",
+      "status": "approved"
+    }
+  ]
+}
